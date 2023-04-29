@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/b6b9b4aaa5.js" crossorigin="anonymous"></script>
+    <script type="module" src="assets/js/index.js"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Les petits plats</title>
+</head>
+<body>
+    <header>
+        <a href="#">
+            <img class="logo" src="./assets/images/logo.png" alt="Logo les petits plats">
+        </a>
+        <form class="searchBar__form" action="index.html" method="get">
+            <label class="searchBar__label" for="searchBar"></label>
+            <input class="searchBar__input" type="text" name="searchBar" id="searchBar" placeholder="Rechercher une recette">
+            <button class="searchBar__submit" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </header>
+    <main>
+        <section id="filterSearch">
+            <div class="filterSearch__ingredients">
+                <h2 class="filterSearch__title">Ingrédients <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+            </div>
+            <div class="filterSearch__appareils">
+                <h2 class="filterSearch__title">Appareils <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+            </div>
+            <div class="filterSearch__ustencils">
+                <h2 class="filterSearch__title">Ustenciles <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+            </div>
+        </section>
+        <section id="recipesDisplay">
+            
+        </section>
+    </main>
+</body>
+</html>

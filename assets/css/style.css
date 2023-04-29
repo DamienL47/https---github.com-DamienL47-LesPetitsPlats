@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'Lato-Regular';
+    src: url('../font/Lato/Lato-Regular.ttf');
+}
+@font-face {
+    font-family: 'Lato-Bold';
+    src: url('../font/Lato/Lato-Bold.ttf');
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+* {
+    font-family: 'Lato-Regular', Arial, Helvetica, sans-serif;
+}
+/* -------------- HEADER Desktop -------------------- */
+
+header {
+    text-align: center;
+}
+.logo {
+    width: 25%;
+}
+.searchBar__form {
+    position: relative;
+}
+.searchBar__input {
+    width: 90%;
+    height: 3.5em;
+    border: none;
+    border-radius: 5px;
+    background-color: #E7E7E7;
+    padding-left: 20px;
+    font-size: 18px;
+}
+.searchBar__submit {
+    position: absolute;
+    border: none;
+    font-size: 1.5em;
+    background: unset;
+    right: 5%;
+    bottom: 50%;
+    transform: translate(-5%, 50%);
+}
+
+
+/* --------------------- MAIN Desktop ---------------------- */
+/* ------------------- Recherche et filtre ------------------ */
+#filterSearch {
+    display: flex;
+    margin: 2% 4%;
+    gap: 20px;
+}
+.filterSearch__ingredients {
+    position: relative;
+    width: 15%;
+    background-color: #3282F7;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 5px 0 5px 10px;
+}
+.filterSearch__appareils {
+    position: relative;
+    width: 15%;
+    background-color: #68D9A4;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 5px 0 5px 10px;
+}
+.filterSearch__ustencils {
+    position: relative;
+    width: 15%;
+    background-color: #ED6454;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 5px 0 5px 10px;
+}
+.filterSearch__title {
+    font-family: 'Lato-Regular' Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+.triDown {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* --------------------- Recette Affichage ---------------------  */
+#recipesDisplay {
+    width: 92%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+}
+.recipesDisplay__article {
+    border: 2px solid red;
+    width: 100%;
+    height: 15em;
+
+}
+.recipesDisplay__article--image {
+    /* border: 2px solid blue; */
+    width: 100%;
+    height: 48%;
+    background: #C7BEBE;
+}
