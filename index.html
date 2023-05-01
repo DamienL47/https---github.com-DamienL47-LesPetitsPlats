@@ -23,18 +23,25 @@
     <main>
         <section id="filterSearch">
             <div class="filterSearch__ingredients">
-                <h2 class="filterSearch__title">Ingrédients <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+                <input type="text" id="ingredients" value="Ingredients">
+                <label class="filters" for="ingredients"><span><i class="fa-solid fa-chevron-down triDown"></i></span></label>  
+                <div class="filterSearch__ingredients--container"></div>                
             </div>
             <div class="filterSearch__appareils">
-                <h2 class="filterSearch__title">Appareils <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+                <input type="text" id="appareils" value="Appareils">                
+                <label class="filters" for="appareils"><span><i class="fa-solid fa-chevron-down triDown"></i></span></label>
+                <div class="filterSearch__appareils--container"></div>
             </div>
             <div class="filterSearch__ustencils">
-                <h2 class="filterSearch__title">Ustenciles <span><i class="fa-solid fa-chevron-down triDown"></i></span> </h2>
+                <input type="text" id="ustencils" value="Ustensiles">
+                <label class="filters" for="ustencils"><span><i class="fa-solid fa-chevron-down triDown"></i></span></label>
+                <div class="filterSearch__ustencils--container"></div>
             </div>
         </section>
         <section id="recipesDisplay">
             
         </section>
     </main>
+    <script src="/assets/js/utils/filter.js"></script>
 </body>
 </html>

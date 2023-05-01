@@ -12,7 +12,8 @@ async function getRecipes() {
 function displayDataRecipes(recipes) {
     const displayArticle = document.getElementById('recipesDisplay');
 
-    recipes.forEach((recipe) => {
+    recipes
+    .forEach((recipe) => {
         const recipeModel = recipesDatas(recipe);
         const recipeCardDOM = recipeModel.getRecipeCard();
         displayArticle.appendChild(recipeCardDOM);

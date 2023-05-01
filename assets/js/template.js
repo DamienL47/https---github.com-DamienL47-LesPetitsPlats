@@ -13,13 +13,6 @@ function recipesDatas(data) {
         const descriptionDisplay = document.createElement('div');
         const textDescription = document.createElement('p');
 
-
-
-        
-
-        // console.log(ingredients[0]);
-
-
         article.setAttribute('class', 'recipesDisplay__article');
         emptyImg.setAttribute('class', 'recipesDisplay__article--image');
         textZoneRecipe.setAttribute('class', 'recipesDisplay__article--textZone');
@@ -30,7 +23,6 @@ function recipesDatas(data) {
         descriptionDisplay.setAttribute('class', 'recipesDisplay__article--description');
         textDescription.setAttribute('class', 'recipesDisplay__article--textDescription');
         textDescription.innerHTML = description;
-
 
         article.appendChild(emptyImg);
         article.appendChild(textZoneRecipe);
@@ -63,11 +55,64 @@ function recipesDatas(data) {
         return ulIngredients
     }
 
+    function filterIngredients() {
+        const incrementFilter = document.querySelector('.filterSearch__ingredients');
+        const container = document.querySelector('.filterSearch__ingredients--container');
+        incrementFilter.addEventListener('click', () => {
+            ingredients.forEach(ingredient => {
+                if(container.innerHTML.includes(ingredient.ingredient)) {
+                    return
+                }
+                const paragraph = document.createElement('p');
+                paragraph.setAttribute('class', 'filterSearch__ingredients--p');
+                paragraph.innerHTML = ingredient.ingredient;
+                container.appendChild(paragraph);
+            });
+            incrementFilter.appendChild(container);
+        });
+    }
+    function filterAppareils() {
+        const incrementFilter = document.querySelector('.filterSearch__appareils');
+        const container = document.querySelector('.filterSearch__appareils--container');
+        const applianceSplit = appliance.split(",");
+        console.log(appliance);
+        incrementFilter.addEventListener('click', () => {
+            applianceSplit.forEach(appareil => {
+                if(container.innerHTML.includes(appareil)) {
+                    return
+                }
+                const paragraph = document.createElement('p');
+                paragraph.setAttribute('class', 'filterSearch__appareils--p');
+                paragraph.innerHTML = appareil;
+                container.appendChild(paragraph);
+            });
+            incrementFilter.appendChild(container);
+        });
+    }
+    function filterUstencils() {
+        const incrementFilter = document.querySelector('.filterSearch__ustencils');
+        const container = document.querySelector('.filterSearch__ustencils--container');
+        incrementFilter.addEventListener('click', () => {
+            ustensils.forEach(ustensil => {
+                if(container.innerHTML.includes(ustensil)) {
+                    return
+                }
+                const paragraph = document.createElement('p');
+                paragraph.setAttribute('class', 'filterSearch__ustencils--p');
+                paragraph.innerHTML = ustensil;
+                container.appendChild(paragraph);
+            });
+            incrementFilter.appendChild(container);
+        });
+    }
+
+    filterIngredients();
+    filterAppareils();
+    filterUstencils();
+
+
 
     return {id, name, serving, ingredients, time, description, appliance, ustensils, getRecipeCard}
 }
 
 export { recipesDatas };
-
-
-
