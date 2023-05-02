@@ -75,7 +75,6 @@ function recipesDatas(data) {
         const incrementFilter = document.querySelector('.filterSearch__appareils');
         const container = document.querySelector('.filterSearch__appareils--container');
         const applianceSplit = appliance.split(",");
-        console.log(appliance);
         incrementFilter.addEventListener('click', () => {
             applianceSplit.forEach(appareil => {
                 if(container.innerHTML.includes(appareil)) {
@@ -89,6 +88,7 @@ function recipesDatas(data) {
             incrementFilter.appendChild(container);
         });
     }
+    
     function filterUstencils() {
         const incrementFilter = document.querySelector('.filterSearch__ustencils');
         const container = document.querySelector('.filterSearch__ustencils--container');
@@ -109,8 +109,6 @@ function recipesDatas(data) {
     filterIngredients();
     filterAppareils();
     filterUstencils();
-
-
 
     return {id, name, serving, ingredients, time, description, appliance, ustensils, getRecipeCard}
 }

@@ -7,7 +7,7 @@ function deployFilter(element1, element2) {
             chevron.classList.add('active');
             btnFilterClic.style.width = '50%';
             btnFilterClic.style.height = '28em';
-            if(inputSearch.value == "Ingredients") {
+            if(inputSearch.value == "Ingrédients") {
                 inputSearch.value = "";
                 inputSearch.setAttribute('placeholder', 'Rechercher un ingrédient');
             } else if(inputSearch.value == "Appareils") {
@@ -22,7 +22,7 @@ function deployFilter(element1, element2) {
             btnFilterClic.style.width = '15%';
             btnFilterClic.style.height = '3.9em';
             if(inputSearch.placeholder == "Rechercher un ingrédient") {
-                inputSearch.value = "Ingredients";
+                inputSearch.value = "Ingrédients";
             } else if(inputSearch.placeholder == "Rechercher un appareil") {
                 inputSearch.value = "Appareils";
             } else if(inputSearch.placeholder == "Rechercher un ustensile") {
