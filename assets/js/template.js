@@ -1,9 +1,6 @@
 
 function recipesDatas(data) {
     const { id, name, serving, ingredients, time, description, appliance, ustensils } = data;
-    let { quantity, unit, ingredient } = ingredients;
-
-
     
     function getRecipeCard() {
         const article = document.createElement('article');

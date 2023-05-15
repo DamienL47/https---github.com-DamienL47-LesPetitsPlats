@@ -161,6 +161,55 @@ header {
     top: 45%;
     transform: translateY(-50%);
 }
+.filterSearch__appareilsSave--container {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    width: max-content;
+    left: 4%;
+    top: 20px;
+    background-color: #68D9A4;
+    margin: 15px 10px 5px 0;
+    border-radius: 5px;
+}
+.filterSearch__appareil--save {
+    display: inline-block;
+    height: 30px;
+    padding: 6px 35px 0 10px;
+    margin: 0;
+    color: #FFFFFF;
+}
+.applianceClose {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    transform: translateY(-50%);
+}
+.filterSearch__ustensilsSave--container {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    width: max-content;
+    left: 4%;
+    top: 20px;
+    background-color: #ED6454;
+    margin: 15px 10px 5px 0;
+    border-radius: 5px;
+}
+.filterSearch__ustensil--save {
+    display: inline-block;
+    height: 30px;
+    padding: 6px 35px 0 10px;
+    margin: 0;
+    color: #FFFFFF;
+}
+.ustensilClose {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
 /* --------------------- Recette Affichage ---------------------  */
 #recipesDisplay {
     position: absolute;
