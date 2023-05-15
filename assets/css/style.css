@@ -76,10 +76,16 @@ header {
     background-color: #ED6454;
     border-radius: 5px;
 }
+/* .open {
+    width: 50%;
+    max-width: 50%;
+    max-height: max-content;
+    overflow: hidden;
+} */
 
 #ingredients, #appareils, #ustencils{
     position: absolute;
-    width: 60%;
+    width: 80%;
     top: 10px;
     padding: 10px 0 10px 15px;
     font-size: 18px;
@@ -126,6 +132,34 @@ header {
     width: 30%;
     margin: 20px 0 0 0;
     color: #FFFFFF;
+}
+#saveSearch__filters {
+    display: flex;
+    align-items: center;
+}
+.filterSearch__ingredientsSave--container {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    width: max-content;
+    left: 4%;
+    top: 20px;
+    background-color: #3282F7;
+    margin: 15px 10px 5px 0;
+    border-radius: 5px;
+}
+.filterSearch__ingredients--save {
+    display: inline-block;
+    height: 30px;
+    padding: 6px 35px 0 10px;
+    margin: 0;
+    color: #FFFFFF;
+}
+.fa-circle-xmark {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    transform: translateY(-50%);
 }
 /* --------------------- Recette Affichage ---------------------  */
 #recipesDisplay {
