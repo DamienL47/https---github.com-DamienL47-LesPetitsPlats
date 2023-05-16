@@ -2,6 +2,8 @@ function deployFilter(element1, element2) {
     const btnFilterClic = document.querySelector(`${element1}`);
     const chevron = btnFilterClic.querySelector('.triDown');
     const inputSearch = btnFilterClic.querySelector(`${element2}`)
+    const displayArticle = document.getElementById('recipesDisplay');
+    const sectionFilterSave = document.getElementById('saveSearch__filter');
     btnFilterClic.addEventListener('click', () => {
         if(!chevron.classList.contains('active')) {
             chevron.classList.add('active');
@@ -18,6 +20,9 @@ function deployFilter(element1, element2) {
                 inputSearch.value = "";
                 inputSearch.setAttribute('placeholder', 'Rechercher un ustensile');
             }
+            if(sectionFilterSave.classList.contains('activeUstensils') || sectionFilterSave.classList.contains('activeAppareils') || sectionFilterSave.classList.contains('activeIngredients')) { 
+                displayArticle.style.top = '500px';
+            }
         } else {
             chevron.classList.remove('active');
             btnFilterClic.classList.remove('open');
@@ -29,6 +34,9 @@ function deployFilter(element1, element2) {
                 inputSearch.value = "Appareils";
             } else if(inputSearch.placeholder == "Rechercher un ustensile") {
                 inputSearch.value = "Ustensiles";
+            }
+            if(!sectionFilterSave.classList.contains('activeUstensils') || sectionFilterSave.classList.contains('activeAppareils') || sectionFilterSave.classList.contains('activeIngredients')) {    
+                displayArticle.style.top = '350px';
             }
         }
     });

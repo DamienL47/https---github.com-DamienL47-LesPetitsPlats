@@ -1,13 +1,21 @@
 import { recipesDatas } from "./template.js"
 
-
-
+//fetch des datas 
 async function getRecipes() {
     const response = await fetch('../../data/recipes.json');
     const data = await response.json();
-    const recipes = data.recipes;
+    var recipes = data.recipes;
 
     return recipes;
+}
+//affichage des recettes 
+function displayDataRecipes(recipes) {
+    recipes
+    .forEach((recipe) => {
+        const recipeModel = recipesDatas(recipe);
+        const recipeCardDOM = recipeModel.getRecipeCard();
+        displayArticle.appendChild(recipeCardDOM);
+    });  
 }
 /* -------------------------- ingredients --------------------------------*/
 let inputIngredients = document.getElementById('ingredients');
@@ -17,14 +25,6 @@ const displayArticle = document.getElementById('recipesDisplay');
 
 let allIngredients = [];
 
-function displayDataRecipes(recipes) {
-    recipes
-    .forEach((recipe) => {
-        const recipeModel = recipesDatas(recipe);
-        const recipeCardDOM = recipeModel.getRecipeCard();
-        displayArticle.appendChild(recipeCardDOM);
-    });  
-}
 function getIngredients(recipes) {
     recipes.forEach((ingredients) => {
         allIngredients = allIngredients.concat(ingredients.ingredients);
@@ -71,6 +71,7 @@ function saveSearchIngredient() {
         if(e.key ==='Enter') {
             const userSearch = formatName(e.target.value);
             inputIngredients.value = "";
+            sectionFilterSave.classList.add('activeIngredients');
             allIngredients.forEach((ingredient) => {
                 if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredIngredients.includes(ingredient)) {
                     return;
@@ -98,6 +99,39 @@ function saveSearchIngredient() {
                 });
             });
         }
+    });
+    const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
+    pIngredients.forEach((pIngredient) => {
+        pIngredient.addEventListener('click', (e) => {
+            const userClick = e.target.textContent;
+            allIngredients.forEach(() => {
+                if (sectionFilterSave.innerHTML.includes(userClick)) {
+                    return;
+                } 
+                const saveSearch__container = document.createElement('div');
+                const fillIngredient = document.createElement('p');
+                
+                saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
+                fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
+                fillIngredient.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
+                sectionFilterSave.appendChild(saveSearch__container); 
+                saveSearch__container.appendChild(fillIngredient); 
+            });
+            sectionFilterSave.classList.add('activeIngredients');
+             // j'affiche les recettes qui contiennent le ou les ingrédients recherché
+            const recipes = document.querySelectorAll('.recipesDisplay__article');
+            recipes.forEach((recipe) => {
+                const ingredients = recipe.querySelectorAll('.recipesDisplay__article--ingredients');
+                ingredients.forEach((ingredient) => {
+                    ingredient = ingredient.querySelector('p').textContent;
+                    if(!formatName(ingredient).match(formatName(userClick))) {
+                        recipe.style.display = 'none';
+                    } else {
+                        recipe.style.display = 'block';
+                    }
+                });
+            });
+        });
     });
 }
 
@@ -148,6 +182,7 @@ function saveSearchAppliances(){
         if(e.key ==='Enter') {
             const userSearch = formatName(e.target.value);
             inputAppliances.value = "";
+            sectionFilterSave.classList.add('activeAppareils');
             allAppliances.forEach((appliance) => {
                 if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredAppliances.includes(appliance)) {
                     return;
@@ -157,7 +192,7 @@ function saveSearchAppliances(){
                 
                 saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
                 fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark applianceClose"></i>`;                
+                fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillAppliance); 
             });
@@ -175,6 +210,38 @@ function saveSearchAppliances(){
                 });
             });
         }
+    });
+    const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
+    pAppliances.forEach((pAppliance) => {
+        pAppliance.addEventListener('click', (e) => {
+            const userClick = e.target.textContent;
+            allAppliances.forEach(() => {
+                if (sectionFilterSave.innerHTML.includes(userClick)) {
+                    return;
+                } 
+                const saveSearch__container = document.createElement('div');
+                const fillAppliance = document.createElement('p');
+                
+                saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
+                fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
+                fillAppliance.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
+                sectionFilterSave.appendChild(saveSearch__container); 
+                saveSearch__container.appendChild(fillAppliance); 
+            });
+            sectionFilterSave.classList.add('activeAppareils');
+            const recipes = document.querySelectorAll('.recipesDisplay__article');
+            recipes.forEach((recipe) => {
+                const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
+                appliances.forEach((appliance) => {
+                    appliance = appliance.querySelector('p').textContent;
+                    if(!formatName(appliance).match(formatName(userClick))) {
+                        recipe.style.display = 'none';
+                    } else {
+                        recipe.style.display = 'block';
+                    }
+                });
+            });
+        });
     });
 }
 
@@ -224,6 +291,7 @@ function saveSearchUstensils(){
         if(e.key ==='Enter') {
             const userSearch = formatName(e.target.value);
             inputUstensils.value = "";
+            sectionFilterSave.classList.add('activeUstensils');
             allUstensils.forEach((ustensil) => {
                 if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredUstensils.includes(ustensil)) {
                     return;
@@ -231,15 +299,15 @@ function saveSearchUstensils(){
                 const saveSearch__container = document.createElement('div');
                 const fillUstensil = document.createElement('p');
                 
-                saveSearch__container.setAttribute('class', 'filterSearch__ustencilsSave--container');
+                saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
                 fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark ustensilClose"></i>`;                
+                fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillUstensil); 
             });
-             // j'affiche les recettes qui contiennent le ou les ustensiles recherché
             const recipes = document.querySelectorAll('.recipesDisplay__article');
             recipes.forEach((recipe) => {
+                console.log(recipe)
                 const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
                 ustensils.forEach((ustensil) => {
                     ustensil = ustensil.querySelector('p').textContent;
@@ -252,6 +320,38 @@ function saveSearchUstensils(){
             });
         }
     });
+    const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
+    pUstensils.forEach((pUstensil) => {
+        pUstensil.addEventListener('click', (e) => {
+            const userClick = e.target.textContent;
+            allUstensils.forEach(() => {
+                if (sectionFilterSave.innerHTML.includes(userClick)) {
+                    return;
+                } 
+                const saveSearch__container = document.createElement('div');
+                const fillUstensil = document.createElement('p');
+                
+                saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
+                fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
+                fillUstensil.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
+                sectionFilterSave.appendChild(saveSearch__container); 
+                saveSearch__container.appendChild(fillUstensil); 
+            });
+            sectionFilterSave.classList.add('activeUstensils');
+            const recipes = document.querySelectorAll('.recipesDisplay__article');
+            recipes.forEach((recipe) => {
+                const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
+                ustensils.forEach((ustensil) => {
+                    ustensil = ustensil.querySelector('p').textContent;
+                    if(!formatName(ustensil).match(formatName(userClick))) {
+                        recipe.style.display = 'none';
+                    } else {
+                        recipe.style.display = 'block';
+                    }
+                });
+            });
+        });
+    });
 }
 
 
@@ -261,9 +361,18 @@ function deleteSearch() {
             const deleteIngredient = e.target.parentElement;
             const div = deleteIngredient.parentElement;
             div.remove();
+            const recipes = document.querySelectorAll('.recipesDisplay__article');
+            recipes.forEach((recipe) => {
+                if(!recipe.style.display == 'block') {
+                    recipe.style.display = 'none';
+                } else {
+                    recipe.style.display = 'block';
+                }           
+            });
         }
     }); 
 }
+
 async function init() {
     const recipes = await getRecipes();
     displayDataRecipes(recipes); 
@@ -281,11 +390,11 @@ async function init() {
     displayIngredients(allIngredients);
     searchIngredients();
     saveSearchIngredient(); 
-    /* -------------------------- Appareils --------------------------------*/
+/* -------------------------- Appareils --------------------------------*/
     displayAppliances(allAppliances);
     searchAppliances();
     saveSearchAppliances();
-    /* -------------------------- Ustensiles --------------------------------*/
+/* -------------------------- Ustensiles --------------------------------*/
     displayUstensils(allUstensils);
     searchUstensils();
     saveSearchUstensils();

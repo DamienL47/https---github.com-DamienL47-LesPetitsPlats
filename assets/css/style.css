@@ -51,7 +51,7 @@ header {
 /* ------------------- Recherche et filtre ------------------ */
 #filterSearch {
     display: flex;
-    margin: 2% 4% 6%;
+    margin: 2% 4.2% 6%;
     gap: 20px;
 }
 
@@ -132,6 +132,7 @@ header {
     width: 30%;
     margin: 20px 0 0 0;
     color: #FFFFFF;
+    cursor: pointer;
 }
 #saveSearch__filters {
     display: flex;
@@ -179,12 +180,7 @@ header {
     margin: 0;
     color: #FFFFFF;
 }
-.applianceClose {
-    position: absolute;
-    right: 10px;
-    top: 45%;
-    transform: translateY(-50%);
-}
+
 .filterSearch__ustensilsSave--container {
     position: relative;
     display: inline-block;
@@ -203,12 +199,7 @@ header {
     margin: 0;
     color: #FFFFFF;
 }
-.ustensilClose {
-    position: absolute;
-    right: 10px;
-    top: 45%;
-    transform: translateY(-50%);
-}
+
 
 /* --------------------- Recette Affichage ---------------------  */
 #recipesDisplay {
@@ -218,16 +209,16 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    top: 320px;
+    top: 350px;
     left: 50%;
     z-index: 0;
     transform: translateX(-50%);
 }
-@media screen and (min-width: 1200px){
+/* @media screen and (min-width: 1200px){
     #recipesDisplay {
         top: 380px;
     }
-}
+} */
 .recipesDisplay__article {
     width: 100%;
     min-height: 20em;
