@@ -1,4 +1,4 @@
-import { recipesDatas } from "./template.js"
+import { displayDataRecipes } from "./features/displayRecipes.js"
 import { filterIngredients } from "./features/filterIngredients.js"
 import { filterAppliances } from "./features/filterAppliances.js"
 import { filterUstensils } from "./features/filterUstensils.js"
@@ -11,16 +11,7 @@ async function getRecipes() {
 
     return recipes;
 }
-//affichage des recettes 
-function displayDataRecipes(recipes) {
-    const displayArticle = document.getElementById('recipesDisplay');
-    recipes
-    .forEach((recipe) => {
-        const recipeModel = recipesDatas(recipe);
-        const recipeCardDOM = recipeModel.getRecipeCard();
-        displayArticle.appendChild(recipeCardDOM);
-    });  
-}
+
 
 function main() {
     getRecipes()

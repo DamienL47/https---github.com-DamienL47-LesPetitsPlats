@@ -47,11 +47,13 @@ function filterUstensils(ustensils) {
     function saveSearchUstensils(){
         inputUstensils.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
-                const userSearch = formatName(e.target.value);
+                const userSearch = e.target.value;
                 inputUstensils.value = "";
-                sectionFilterSave.classList.add('activeUstensils');
+                if(inputUstensils.value === "") {
+                    displayUstensils(allUstensils);
+                }
                 allUstensils.forEach((ustensil) => {
-                    if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredUstensils.includes(ustensil)) {
+                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredUstensils.includes(ustensil)) {
                         return;
                     } 
                     const saveSearch__container = document.createElement('div');
@@ -81,9 +83,9 @@ function filterUstensils(ustensils) {
         const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
         pUstensils.forEach((pUstensil) => {
             pUstensil.addEventListener('click', (e) => {
-                const userSearch = e.target.textContent;
+                const userClickUstensil = e.target.textContent;
                 allUstensils.forEach(() => {
-                    if (sectionFilterSave.innerHTML.includes(userSearch)) {
+                    if (sectionFilterSave.innerHTML.includes(userClickUstensil)) {
                         return;
                     } 
                     const saveSearch__container = document.createElement('div');
@@ -91,7 +93,7 @@ function filterUstensils(ustensils) {
                     
                     saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
                     fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+                    fillUstensil.innerHTML = `${userClickUstensil} <i class="fa-regular fa-circle-xmark"></i>`;                
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillUstensil); 
                 });
@@ -101,7 +103,7 @@ function filterUstensils(ustensils) {
                     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
                     ustensils.forEach((ustensil) => {
                         ustensil = ustensil.querySelector('p').textContent;
-                        if(!formatName(ustensil).match(formatName(userSearch))) {
+                        if(!formatName(ustensil).match(formatName(userClickUstensil))) {
                             recipe.style.display = 'none';
                         } else {
                             recipe.style.display = 'block';
@@ -110,8 +112,8 @@ function filterUstensils(ustensils) {
                 });
             });
         });
-        // deleteSearch('ustensil', 'userSearch');
     }
+    deleteSearch();
     getUstensils(ustensils);
     displayUstensils(allUstensils);
     searchUstensils();

@@ -50,11 +50,13 @@ function searchAppliances(){
 function saveSearchAppliances(){
     inputAppliances.addEventListener('keydown', (e) => {
         if(e.key ==='Enter') {
-            const userSearch = formatName(e.target.value);
+            const userSearch = e.target.value;
             inputAppliances.value = "";
-            sectionFilterSave.classList.add('activeAppareils');
+            if(inputAppliances.value === "") {
+                displayAppliances(allAppliances);
+            }
             allAppliances.forEach((appliance) => {
-                if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredAppliances.includes(appliance)) {
+                if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredAppliances.includes(appliance)) {
                     return;
                 } 
                 const saveSearch__container = document.createElement('div');
@@ -84,9 +86,9 @@ function saveSearchAppliances(){
     const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
     pAppliances.forEach((pAppliance) => {
         pAppliance.addEventListener('click', (e) => {
-            const userClick = e.target.textContent;
+            const userClickAppliance = e.target.textContent;
             allAppliances.forEach(() => {
-                if (sectionFilterSave.innerHTML.includes(userClick)) {
+                if (sectionFilterSave.innerHTML.includes(userClickAppliance)) {
                     return;
                 } 
                 const saveSearch__container = document.createElement('div');
@@ -94,17 +96,16 @@ function saveSearchAppliances(){
                 
                 saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
                 fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                fillAppliance.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
+                fillAppliance.innerHTML = `${userClickAppliance} <i class="fa-regular fa-circle-xmark"></i>`;                
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillAppliance); 
             });
-            sectionFilterSave.classList.add('activeAppareils');
             const recipes = document.querySelectorAll('.recipesDisplay__article');
             recipes.forEach((recipe) => {
                 const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
                 appliances.forEach((appliance) => {
                     appliance = appliance.querySelector('p').textContent;
-                    if(!formatName(appliance).match(formatName(userClick))) {
+                    if(!formatName(appliance).match(formatName(userClickAppliance))) {
                         recipe.style.display = 'none';
                     } else {
                         recipe.style.display = 'block';
@@ -114,6 +115,8 @@ function saveSearchAppliances(){
         });
     });
 }
+
+deleteSearch();
 getAppliances(appliances);
 displayAppliances(allAppliances);
 searchAppliances();

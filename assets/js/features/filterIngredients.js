@@ -1,6 +1,7 @@
 
 import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
+import { displayDataRecipes } from "./displayRecipes.js"
 
 function filterIngredients(ingredients) {
     // const { ingredient, quantity, unit } = ingredients;
@@ -51,11 +52,14 @@ function searchIngredients(){
 function saveSearchIngredient() {
     inputIngredients.addEventListener('keydown', (e) => {        
         if(e.key ==='Enter') {
-            const userSearch = formatName(e.target.value);
+            const userSearch = e.target.value;
             inputIngredients.value = "";
-            sectionFilterSave.classList.add('activeIngredients');
+            if(inputIngredients.value === "") {
+                displayIngredients(allIngredients);
+            }
+            // sectionFilterSave.classList.add('activeIngredients');
             allIngredients.forEach((ingredient) => {
-                if (sectionFilterSave.innerHTML.includes(userSearch) || !filteredIngredients.includes(ingredient)) {
+                if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredIngredients.includes(ingredient)) {
                     return;
                 } 
                 const saveSearch__container = document.createElement('div');
@@ -86,6 +90,7 @@ function saveSearchIngredient() {
     pIngredients.forEach((pIngredient) => {
         pIngredient.addEventListener('click', (e) => {
             const userClick = e.target.textContent;
+
             allIngredients.forEach(() => {
                 if (sectionFilterSave.innerHTML.includes(userClick)) {
                     return;
@@ -99,23 +104,26 @@ function saveSearchIngredient() {
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillIngredient); 
             });
-            sectionFilterSave.classList.add('activeIngredients');
+
              // j'affiche les recettes qui contiennent le ou les ingrédients recherché
-            const recipes = document.querySelectorAll('.recipesDisplay__article');
-            recipes.forEach((recipe) => {
-                const ingredients = recipe.querySelectorAll('.recipesDisplay__article--ingredients');
-                ingredients.forEach((ingredient) => {
-                    ingredient = ingredient.querySelector('p').textContent;
-                    if(!formatName(ingredient).match(formatName(userClick))) {
-                        recipe.style.display = 'none';
-                    } else {
-                        recipe.style.display = 'block';
-                    }
-                });
-            });
+            // const recipes = document.querySelectorAll('.recipesDisplay__article');
+            // recipes.forEach((recipe) => {
+            //     const ingredients = recipe.querySelectorAll('.recipesDisplay__article--ingredients');
+            //     ingredients.forEach((ingredient) => {
+            //         ingredient = ingredient.querySelector('p').textContent;
+            //         if(!formatName(ingredient).match(formatName(userClick))) {
+            //             recipe.style.display = 'none';
+            //         } else {
+            //             recipe.style.display = 'block';
+            //         }
+            //     });
+            // });
         });
     });
+    displayDataRecipes(filteredIngredients)
 }
+console.log(filteredIngredients);
+deleteSearch();
 getIngredients(ingredients);
 displayIngredients(allIngredients);
 searchIngredients();
