@@ -1,3 +1,6 @@
+import { formatName } from '../utils/formatting.js';
+import { deleteSearch } from '../utils/deleteSearch.js';
+
 function filterUstensils(ustensils) {
 
     let allUstensils = [];
@@ -10,14 +13,6 @@ function filterUstensils(ustensils) {
         recipes.forEach((ustensils) => {
             allUstensils = allUstensils.concat(ustensils.ustensils);
         });
-    }
-
-    function formatName(name) {
-        name = name.toLowerCase();
-        name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        name = name.replace(/[\s-]/g, "");
-    
-        return name;
     }
     
     function displayUstensils(ustensils) {

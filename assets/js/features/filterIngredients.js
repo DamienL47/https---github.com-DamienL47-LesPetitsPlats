@@ -1,6 +1,9 @@
+
+import { formatName } from '../utils/formatting.js';
+import { deleteSearch } from '../utils/deleteSearch.js';
+
 function filterIngredients(ingredients) {
     // const { ingredient, quantity, unit } = ingredients;
-
 
 let inputIngredients = document.getElementById('ingredients');
 const containerIngredients = document.querySelector('.filterSearch__ingredients--container');
@@ -26,14 +29,9 @@ function displayIngredients(ingredients) {
         containerIngredients.appendChild(paragraph);
     });
 }
-function formatName(name) {
-    name = name.toLowerCase();
-    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    name = name.replace(/[\s-]/g, "");
 
-    return name;
-}
 let filteredIngredients = [];
+
 function searchIngredients(){
     inputIngredients.addEventListener('input', (e) => {
         containerIngredients.innerHTML = "";
@@ -122,6 +120,7 @@ getIngredients(ingredients);
 displayIngredients(allIngredients);
 searchIngredients();
 saveSearchIngredient(); 
+
 
 }
 

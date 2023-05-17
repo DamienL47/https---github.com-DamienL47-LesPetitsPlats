@@ -1,3 +1,6 @@
+import { formatName } from '../utils/formatting.js';
+import { deleteSearch } from '../utils/deleteSearch.js';
+
 function filterAppliances(appliances) {
 
 
@@ -13,14 +16,6 @@ function getAppliances(recipes) {
     recipes.forEach((appliances) => {
         allAppliances = allAppliances.concat(appliances.appliance);
     });
-}
-
-function formatName(name) {
-    name = name.toLowerCase();
-    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    name = name.replace(/[\s-]/g, "");
-
-    return name;
 }
 
 function displayAppliances(appliances) {
