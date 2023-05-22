@@ -1,4 +1,5 @@
 import { formatName } from '../utils/formatting.js';
+import { displayDataRecipes } from "../features/displayRecipes.js"
 
 function deleteSearch() {
     const sectionFilterSave = document.getElementById('saveSearch__filter');
