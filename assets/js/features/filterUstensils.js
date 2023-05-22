@@ -1,7 +1,8 @@
 import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
+import { displayDataRecipes } from "./displayRecipes.js"
 
-function filterUstensils(ustensils) {
+function filterUstensils(recipes) {
 
     let allUstensils = [];
 
@@ -65,19 +66,20 @@ function filterUstensils(ustensils) {
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillUstensil); 
                 });
-                const recipes = document.querySelectorAll('.recipesDisplay__article');
-                recipes.forEach((recipe) => {
-                    console.log(recipe)
-                    const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                    ustensils.forEach((ustensil) => {
-                        ustensil = ustensil.querySelector('p').textContent;
-                        if(!formatName(ustensil).match(userSearch)) {
-                            recipe.style.display = 'none';
-                        } else {
-                            recipe.style.display = 'block';
-                        }
-                    });
-                });
+                displayDataRecipes(recipes, filteredUstensils);
+                // const recipes = document.querySelectorAll('.recipesDisplay__article');
+                // recipes.forEach((recipe) => {
+                //     console.log(recipe)
+                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
+                //     ustensils.forEach((ustensil) => {
+                //         ustensil = ustensil.querySelector('p').textContent;
+                //         if(!formatName(ustensil).match(userSearch)) {
+                //             recipe.style.display = 'none';
+                //         } else {
+                //             recipe.style.display = 'block';
+                //         }
+                //     });
+                // });
             }
         });
         const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
@@ -97,24 +99,25 @@ function filterUstensils(ustensils) {
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillUstensil); 
                 });
-                sectionFilterSave.classList.add('activeUstensils');
-                const recipes = document.querySelectorAll('.recipesDisplay__article');
-                recipes.forEach((recipe) => {
-                    const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                    ustensils.forEach((ustensil) => {
-                        ustensil = ustensil.querySelector('p').textContent;
-                        if(!formatName(ustensil).match(formatName(userClickUstensil))) {
-                            recipe.style.display = 'none';
-                        } else {
-                            recipe.style.display = 'block';
-                        }
-                    });
-                });
+                displayDataRecipes(recipes, filteredUstensils);
+                // sectionFilterSave.classList.add('activeUstensils');
+                // const recipes = document.querySelectorAll('.recipesDisplay__article');
+                // recipes.forEach((recipe) => {
+                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
+                //     ustensils.forEach((ustensil) => {
+                //         ustensil = ustensil.querySelector('p').textContent;
+                //         if(!formatName(ustensil).match(formatName(userClickUstensil))) {
+                //             recipe.style.display = 'none';
+                //         } else {
+                //             recipe.style.display = 'block';
+                //         }
+                //     });
+                // });
             });
         });
     }
     deleteSearch();
-    getUstensils(ustensils);
+    getUstensils(recipes);
     displayUstensils(allUstensils);
     searchUstensils();
     saveSearchUstensils();

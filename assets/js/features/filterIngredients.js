@@ -3,8 +3,7 @@ import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
 
-function filterIngredients(ingredients) {
-    // const { ingredient, quantity, unit } = ingredients;
+function filterIngredients(recipes) {
 
 let inputIngredients = document.getElementById('ingredients');
 const containerIngredients = document.querySelector('.filterSearch__ingredients--container');
@@ -17,6 +16,7 @@ function getIngredients(recipes) {
     recipes.forEach((ingredients) => {
         allIngredients = allIngredients.concat(ingredients.ingredients);
     });
+
 }
 
 function displayIngredients(ingredients) {         
@@ -46,9 +46,10 @@ function searchIngredients(){
             paragraph2.textContent = 'Aucun ingrédient trouvé';
             containerIngredients.appendChild(paragraph2);
         } 
-        displayIngredients(filteredIngredients);       
-    });
+        displayIngredients(filteredIngredients);  
+    });     
 }
+
 function saveSearchIngredient() {
     inputIngredients.addEventListener('keydown', (e) => {        
         if(e.key ==='Enter') {
@@ -56,8 +57,8 @@ function saveSearchIngredient() {
             inputIngredients.value = "";
             if(inputIngredients.value === "") {
                 displayIngredients(allIngredients);
+                filteredIngredients.push(userSearch);
             }
-            // sectionFilterSave.classList.add('activeIngredients');
             allIngredients.forEach((ingredient) => {
                 if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredIngredients.includes(ingredient)) {
                     return;
@@ -71,26 +72,14 @@ function saveSearchIngredient() {
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillIngredient); 
             });
-             // j'affiche les recettes qui contiennent le ou les ingrédients recherché
-            const recipes = document.querySelectorAll('.recipesDisplay__article');
-            recipes.forEach((recipe) => {
-                const ingredients = recipe.querySelectorAll('.recipesDisplay__article--ingredients');
-                ingredients.forEach((ingredient) => {
-                    ingredient = ingredient.querySelector('p').textContent;
-                    if(!formatName(ingredient).match(userSearch)) {
-                        recipe.style.display = 'none';
-                    } else {
-                        recipe.style.display = 'block';
-                    }
-                });
-            });
+            displayDataRecipes(recipes, filteredIngredients);
         }
     });
     const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
     pIngredients.forEach((pIngredient) => {
         pIngredient.addEventListener('click', (e) => {
             const userClick = e.target.textContent;
-
+            filteredIngredients.push(userClick);
             allIngredients.forEach(() => {
                 if (sectionFilterSave.innerHTML.includes(userClick)) {
                     return;
@@ -104,7 +93,8 @@ function saveSearchIngredient() {
                 sectionFilterSave.appendChild(saveSearch__container); 
                 saveSearch__container.appendChild(fillIngredient); 
             });
-
+            displayDataRecipes(recipes, filteredIngredients);
+            console.log(filteredIngredients);
              // j'affiche les recettes qui contiennent le ou les ingrédients recherché
             // const recipes = document.querySelectorAll('.recipesDisplay__article');
             // recipes.forEach((recipe) => {
@@ -120,14 +110,14 @@ function saveSearchIngredient() {
             // });
         });
     });
-    displayDataRecipes(filteredIngredients)
+    
 }
-console.log(filteredIngredients);
-deleteSearch();
-getIngredients(ingredients);
+
+getIngredients(recipes);
 displayIngredients(allIngredients);
 searchIngredients();
 saveSearchIngredient(); 
+deleteSearch();
 
 
 }
