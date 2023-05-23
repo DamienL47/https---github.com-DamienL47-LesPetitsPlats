@@ -1,4 +1,5 @@
 import { recipesDatas } from '../template.js';
+import { deleteSearch } from '../utils/deleteSearch.js';
 
 
 
@@ -15,7 +16,7 @@ function displayDataRecipes(recipes, filtersTags) {;
             displayArticle.appendChild(recipeCardDOM);
         });
         return;
-    }
+    } 
     recipes.forEach((recipe) => {
         let showRecipe = false;
         for(let i = 0; i < recipe.ingredients.length; i++) {
@@ -45,8 +46,7 @@ function displayDataRecipes(recipes, filtersTags) {;
             const recipeCardDOM = recipeModel.getRecipeCard();
             displayArticle.appendChild(recipeCardDOM);
         }
-    });
-    
+    });  
 }
 
 const _displayDataRecipes = displayDataRecipes;

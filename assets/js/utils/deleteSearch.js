@@ -1,5 +1,4 @@
 import { formatName } from '../utils/formatting.js';
-import { displayDataRecipes } from "../features/displayRecipes.js"
 
 function deleteSearch() {
     const sectionFilterSave = document.getElementById('saveSearch__filter');
@@ -16,11 +15,12 @@ function deleteSearch() {
             recipes.forEach((recipe) => {
                 const recipeTags = Array.from(recipe.querySelectorAll(`.recipeTags__tag`))
                 .map((tag) => formatName(tag.textContent));
-                if(tagFilter.some(filter => !recipeTags.includes(filter))) {
-                    recipe.style.display = 'none';
-                } else {
+                if(!tagFilter.some(filter => !recipeTags.includes(filter))) {
                     recipe.style.display = 'block';
-                }           
+                }
+                else {
+                    recipe.style.display = 'none';
+                }         
             });
         }
     }); 
