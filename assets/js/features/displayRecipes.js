@@ -27,21 +27,6 @@ function displayDataRecipes(recipes, filtersTags) {;
                 }
             }
         }
-        if(!showRecipe) {   
-            for(let k = 0; k < filtersTags.length; k++) {
-                if(recipe.appliance.includes(filtersTags[k])) {
-                    console.log('filterTag = ' + filtersTags[k]);
-                    showRecipe = true;
-                    break;
-                }
-            }
-            
-            for(let l = 0; l < recipe.ustensils.length; l++) {
-                if(recipe.ustensils[l].toLowerCase().includes(filtersTags[l])) {
-                    showRecipe = true;
-                }
-            }
-        }
         if(showRecipe) {
             
             const recipeModel = recipesDatas(recipe);
@@ -49,6 +34,38 @@ function displayDataRecipes(recipes, filtersTags) {;
             displayArticle.appendChild(recipeCardDOM);
         }
     });  
+    recipes.forEach((recipe) => {
+        let showRecipe = false;
+        for(let i = 0; i < recipe.length; i++) {
+            for(let j = 0; j < filtersTags.length; j++) {
+                if(recipe[i].appliance.toLowerCase().includes(filtersTags[j])) {
+                    showRecipe = true;
+                    break;
+                }
+            }
+        }
+        if(showRecipe) {    
+            const recipeModel = recipesDatas(recipe);
+            const recipeCardDOM = recipeModel.getRecipeCard();
+            displayArticle.appendChild(recipeCardDOM);
+        }
+    });
+    recipes.forEach((recipe) => {
+        let showRecipe = false;
+        for(let i = 0; i < recipe.ustensils.length; i++) {
+            for(let j = 0; j < filtersTags.length; j++) {
+                if(recipe.ustensils[i].toLowerCase().includes(filtersTags[j])) {
+                    showRecipe = true;
+                    break;
+                }
+            }
+        }
+        if(showRecipe) {    
+            const recipeModel = recipesDatas(recipe);
+            const recipeCardDOM = recipeModel.getRecipeCard();
+            displayArticle.appendChild(recipeCardDOM);
+        }
+    });
 }
 
 const _displayDataRecipes = displayDataRecipes;

@@ -48,7 +48,7 @@ function filterIngredients(recipes) {
             displayIngredients(filteredIngredients);  
         });     
     }
-
+    
     let filteredIngredientClick = [];
     
     function saveSearchIngredient() {
@@ -98,13 +98,13 @@ function filterIngredients(recipes) {
             });
         });
     }
-
+    
     getIngredients(recipes);
     displayIngredients(allIngredients);
     searchIngredients();
     saveSearchIngredient(); 
-    deleteSearch(recipes, filteredIngredientClick);
     deleteSearch(recipes, filteredIngredients);
+    deleteSearch(recipes, filteredIngredientClick);
 
 }
 
