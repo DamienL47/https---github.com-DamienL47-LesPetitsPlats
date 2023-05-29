@@ -8,7 +8,6 @@ function filterAppliances(recipes) {
     const inputAppliances = document.getElementById('appareils');
     const containerAppliances = document.querySelector('.filterSearch__appareils--container');
     const sectionFilterSave = document.getElementById('saveSearch__filter');
-    const displayArticle = document.getElementById('recipesDisplay');
 
     let allAppliances = [];
 
@@ -48,12 +47,14 @@ function filterAppliances(recipes) {
         });
     }
 
+    let filteredAppliancesClick = [];
     function saveSearchAppliances(){
         inputAppliances.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
                 const userSearch = e.target.value;
                 inputAppliances.value = "";
                 if(inputAppliances.value === "") {
+                    filteredAppliancesClick.push(userSearch);
                     displayAppliances(allAppliances);
                 }
                 allAppliances.forEach((appliance) => {
@@ -70,25 +71,13 @@ function filterAppliances(recipes) {
                     saveSearch__container.appendChild(fillAppliance); 
                 });
                 displayDataRecipes(recipes, filteredAppliances);
-                // j'affiche les recettes qui contiennent le ou les appareils recherché
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     appliances.forEach((appliance) => {
-                //         appliance = appliance.querySelector('p').textContent;
-                //         if(!formatName(appliance).match(userSearch)) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
             }
         });
         const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
         pAppliances.forEach((pAppliance) => {
             pAppliance.addEventListener('click', (e) => {
                 const userClickAppliance = e.target.textContent;
+                filteredAppliancesClick.push(userClickAppliance.toLowerCase());
                 allAppliances.forEach(() => {
                     if (sectionFilterSave.innerHTML.includes(userClickAppliance)) {
                         return;
@@ -102,27 +91,18 @@ function filterAppliances(recipes) {
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillAppliance); 
                 });
-                displayDataRecipes(recipes, filteredAppliances);
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     appliances.forEach((appliance) => {
-                //         appliance = appliance.querySelector('p').textContent;
-                //         if(!formatName(appliance).match(formatName(userClickAppliance))) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
+                displayDataRecipes(recipes, filteredAppliancesClick);
             });
         });
     }
 
-getAppliances(recipes);
-displayAppliances(allAppliances);
-searchAppliances();
-saveSearchAppliances();
-deleteSearch();
+
+    getAppliances(recipes);
+    displayAppliances(allAppliances);
+    searchAppliances();
+    saveSearchAppliances();
+    deleteSearch(recipes, filteredAppliancesClick);
+    deleteSearch(recipes, filteredAppliances);
 }
+
 export { filterAppliances }

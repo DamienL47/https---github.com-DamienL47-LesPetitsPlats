@@ -1,5 +1,5 @@
 import { recipesDatas } from '../template.js';
-import { deleteSearch } from '../utils/deleteSearch.js';
+// import { deleteSearch } from '../utils/deleteSearch.js';
 
 
 
@@ -30,6 +30,7 @@ function displayDataRecipes(recipes, filtersTags) {;
         if(!showRecipe) {   
             for(let k = 0; k < filtersTags.length; k++) {
                 if(recipe.appliance.includes(filtersTags[k])) {
+                    console.log('filterTag = ' + filtersTags[k]);
                     showRecipe = true;
                     break;
                 }
@@ -42,6 +43,7 @@ function displayDataRecipes(recipes, filtersTags) {;
             }
         }
         if(showRecipe) {
+            
             const recipeModel = recipesDatas(recipe);
             const recipeCardDOM = recipeModel.getRecipeCard();
             displayArticle.appendChild(recipeCardDOM);

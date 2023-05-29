@@ -27,7 +27,9 @@ function filterUstensils(recipes) {
             containerUstensils.appendChild(paragraph);
         });
     }
+
     let filteredUstensils = [];
+    
     function searchUstensils(){
         inputUstensils.addEventListener('input', (e) => {
             containerUstensils.innerHTML = "";
@@ -44,13 +46,16 @@ function filterUstensils(recipes) {
             displayUstensils(filteredUstensils);       
         });
     }
-    
+
+    let filteredUstensilsClick = [];
+
     function saveSearchUstensils(){
         inputUstensils.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
                 const userSearch = e.target.value;
                 inputUstensils.value = "";
                 if(inputUstensils.value === "") {
+                    filteredUstensilsClick.push(userSearch);
                     displayUstensils(allUstensils);
                 }
                 allUstensils.forEach((ustensil) => {
@@ -67,25 +72,13 @@ function filterUstensils(recipes) {
                     saveSearch__container.appendChild(fillUstensil); 
                 });
                 displayDataRecipes(recipes, filteredUstensils);
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     console.log(recipe)
-                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     ustensils.forEach((ustensil) => {
-                //         ustensil = ustensil.querySelector('p').textContent;
-                //         if(!formatName(ustensil).match(userSearch)) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
             }
         });
         const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
         pUstensils.forEach((pUstensil) => {
             pUstensil.addEventListener('click', (e) => {
                 const userClickUstensil = e.target.textContent;
+                filteredUstensilsClick.push(userClickUstensil);
                 allUstensils.forEach(() => {
                     if (sectionFilterSave.innerHTML.includes(userClickUstensil)) {
                         return;
@@ -100,27 +93,16 @@ function filterUstensils(recipes) {
                     saveSearch__container.appendChild(fillUstensil); 
                 });
                 displayDataRecipes(recipes, filteredUstensils);
-                // sectionFilterSave.classList.add('activeUstensils');
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     ustensils.forEach((ustensil) => {
-                //         ustensil = ustensil.querySelector('p').textContent;
-                //         if(!formatName(ustensil).match(formatName(userClickUstensil))) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
             });
         });
     }
-    deleteSearch();
+
     getUstensils(recipes);
     displayUstensils(allUstensils);
     searchUstensils();
     saveSearchUstensils();
+    deleteSearch(recipes, filteredUstensilsClick);
+    deleteSearch(recipes, filteredUstensils);
 }
 
 export { filterUstensils };

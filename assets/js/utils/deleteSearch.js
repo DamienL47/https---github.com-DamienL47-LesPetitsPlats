@@ -1,30 +1,31 @@
-import { formatName } from '../utils/formatting.js';
+import { formatName } from "./formatting.js";
+import { displayDataRecipes } from "../features/displayRecipes.js"
+import { filterIngredients } from "../features/filterIngredients.js";
 
-function deleteSearch() {
+
+
+function deleteSearch(recipes, array) {
     const sectionFilterSave = document.getElementById('saveSearch__filter');
     sectionFilterSave.addEventListener('click', (e) => {
-        if(e.target.classList.contains('fa-circle-xmark')) {
-            const deleteIngredient = e.target.parentElement;
-            const div = deleteIngredient.parentElement;
-            div.remove();
-
-            const tagFilter = Array.from(sectionFilterSave.children)
-            .map((filter) => formatName(filter.textContent));
-
-            const recipes = document.querySelectorAll('.recipesDisplay__article');
-            recipes.forEach((recipe) => {
-                const recipeTags = Array.from(recipe.querySelectorAll(`.recipeTags__tag`))
-                .map((tag) => formatName(tag.textContent));
-                if(!tagFilter.some(filter => !recipeTags.includes(filter))) {
-                    recipe.style.display = 'block';
+        const btnDelete = e.target;
+        const tag = btnDelete.parentElement.textContent;
+        if(!btnDelete){
+            return;
+        } 
+        if (btnDelete.classList.contains('fa-circle-xmark')) {
+            console.log(array);
+            for(let i = 0; i < array.length; i++) {
+                if(formatName(array[i]).includes(formatName(tag))) {
+                    array.pop(tag);
+                    btnDelete.parentElement.remove();
+                    displayDataRecipes(recipes, array);
+                } else {
+                    displayDataRecipes(recipes);
                 }
-                else {
-                    recipe.style.display = 'none';
-                }         
-            });
+            }
         }
+        
     }); 
 }
 
-const _deleteSearch = deleteSearch;
-export { _deleteSearch as deleteSearch };
+export { deleteSearch };

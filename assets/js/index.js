@@ -17,7 +17,6 @@ function main() {
     getRecipes()
     .then((recipes) => {
         displayDataRecipes(recipes);
-        // recipeContainsFilter(recipes);
         filterIngredients(recipes);
         filterAppliances(recipes);
         filterUstensils(recipes);
