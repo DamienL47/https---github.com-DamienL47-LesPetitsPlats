@@ -1,7 +1,7 @@
-import { displayDataRecipes } from "./features/displayRecipes.js"
-import { filterIngredients } from "./features/filterIngredients.js"
-import { filterAppliances } from "./features/filterAppliances.js"
-import { filterUstensils } from "./features/filterUstensils.js"
+import { displayDataRecipes } from "./features/displayRecipes.js";
+import { filterIngredients } from "./features/filterIngredients.js";
+import { filterAppliances } from "./features/filterAppliances.js";
+import { filterUstensils } from "./features/filterUstensils.js";
 import { globalSearch } from "./features/globalSearch.js";
 
 //fetch des datas 
@@ -21,7 +21,7 @@ function main() {
         filterIngredients(recipes);
         filterAppliances(recipes);
         filterUstensils(recipes);
-        globalSearch(recipes)
+        globalSearch(recipes);
     });
 }
 

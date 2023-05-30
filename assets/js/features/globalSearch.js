@@ -32,15 +32,14 @@ function globalSearch(recipes) {
         } else {
             displayDataRecipes(recipes);
         }
-        if(recipesFilter.length == 0) {
+        if(recipesFilter.length === 0) {
             h3.setAttribute('class', 'recipesDisplay__h3');
             h3.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
             recipeEmpty.appendChild(h3); 
-        }
-        if(searchInput.length < 3 && recipesFilter.length === 0) {
+        } 
+        if (recipesFilter.length === 0 && searchValue.length < 3) {
             recipeEmpty.removeChild(h3);
-        }
-        
+        }  
     });
 }
 export { globalSearch };
