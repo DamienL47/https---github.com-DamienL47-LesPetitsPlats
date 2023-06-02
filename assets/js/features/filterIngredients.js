@@ -1,6 +1,6 @@
 
 import { formatName } from '../utils/formatting.js';
-import { displayDataRecipes } from "./displayRecipes.js"
+import { displayDataRecipes } from "./displayRecipes.js";
 import { deleteSearch } from '../utils/deleteSearch.js';
 
 function filterIngredients(recipes) {
@@ -49,63 +49,61 @@ function filterIngredients(recipes) {
         });     
     }
     
-    let filteredIngredientClick = [];
+    let arrayIngredientsSave = [];
     
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
             if(e.key ==='Enter') {
-                const userSearch = e.target.value;
+                const userSearch = formatName(e.target.value);
                 inputIngredients.value = "";
                 if(inputIngredients.value === "") {
                     displayIngredients(allIngredients);
-                    filteredIngredients.push(userSearch);
                 }
                 allIngredients.forEach((ingredient) => {
-                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredIngredients.includes(ingredient)) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(ingredient.ingredient)) {
                         return;
                     } 
-                    const saveSearch__container = document.createElement('div');
-                    const fillIngredient = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
-                    fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-                    fillIngredient.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillIngredient); 
+                    arrayIngredientsSave.push(userSearch);
+                    displayTagFilter(userSearch);
                 });
-                displayDataRecipes(recipes, filteredIngredients);
             }
         });
+    }
+    function saveSearchIngredientClick() {
         const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
         pIngredients.forEach((pIngredient) => {
             pIngredient.addEventListener('click', (e) => {
-                const userClick = e.target.textContent;
-                filteredIngredientClick.push(userClick.toLowerCase());
-                allIngredients.forEach(() => {
-                    if (sectionFilterSave.innerHTML.includes(userClick)) {
+                const userSearch = e.target.textContent;
+                arrayIngredientsSave.push(userSearch);
+                allIngredients.forEach((ingredient) => {
+                    if (arrayIngredientsSave.includes(formatName(ingredient.ingredient)) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     } 
-                    const saveSearch__container = document.createElement('div');
-                    const fillIngredient = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
-                    fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-                    fillIngredient.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillIngredient); 
-                });
-                displayDataRecipes(recipes, filteredIngredientClick);       
+                    displayTagFilter(userSearch);
+                });     
             });
         });
     }
+    function displayTagFilter(userSearch) {
+        const saveSearch__container = document.createElement('div');
+        const fillIngredient = document.createElement('p');
+        
+        saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
+        fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
+        fillIngredient.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        sectionFilterSave.appendChild(saveSearch__container); 
+        saveSearch__container.appendChild(fillIngredient); 
+
+        displayDataRecipes(recipes, arrayIngredientsSave);
+        deleteSearch(recipes, arrayIngredientsSave, fillIngredient, saveSearch__container);
+    }
+    
     
     getIngredients(recipes);
     displayIngredients(allIngredients);
     searchIngredients();
     saveSearchIngredient(); 
-    deleteSearch(recipes, filteredIngredients);
-    deleteSearch(recipes, filteredIngredientClick);
-
+    saveSearchIngredientClick();
 }
 
 export { filterIngredients }

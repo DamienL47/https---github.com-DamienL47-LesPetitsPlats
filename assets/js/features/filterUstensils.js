@@ -1,5 +1,5 @@
 import { formatName } from '../utils/formatting.js';
-import { deleteSearch } from '../utils/deleteSearch.js';
+// import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
 
 function filterUstensils(recipes) {
@@ -101,8 +101,6 @@ function filterUstensils(recipes) {
     displayUstensils(allUstensils);
     searchUstensils();
     saveSearchUstensils();
-    deleteSearch(recipes, filteredUstensilsClick);
-    deleteSearch(recipes, filteredUstensils);
-}
 
+}
 export { filterUstensils };
