@@ -7,6 +7,7 @@ const displayArticle = document.getElementById('recipesDisplay');
 function displayDataRecipes(recipes, arrayTags) {;
     
     displayArticle.innerHTML = "";
+
     recipes.forEach((recipe) => {
         const recipeModel = recipesDatas(recipe);
         const recipeCardDOM = recipeModel.getRecipeCard();
@@ -19,13 +20,11 @@ function displayDataRecipes(recipes, arrayTags) {;
         testAppliance(recipes, arrayTags);
         testUstensils(recipes, arrayTags);      
     } 
-
 }
- function testIngredient(recipes, arrayTags) {
-    
+function testIngredient(recipes, arrayIngredient) {   
     recipes.forEach((recipe) => {
-        arrayTags.forEach((tag) => {
-            recipe.ingredients.forEach((ingredient) => {
+        recipe.ingredients.forEach((ingredient) => {
+            arrayIngredient.forEach((tag) => {
                 if(formatName(ingredient.ingredient).includes(formatName(tag))) {
                     const recipeModel = recipesDatas(recipe);
                     const recipeCardDOM = recipeModel.getRecipeCard();
@@ -33,26 +32,30 @@ function displayDataRecipes(recipes, arrayTags) {;
                 }
             });
         });
-    });
-    
- }
- function testAppliance(recipes, arrayTags) {
+    });  
+}
+function testAppliance(recipes, arrayAppliance) {
     recipes.forEach((recipe) => {
-        arrayTags.forEach((tag) => {
+        arrayAppliance.forEach((tag) => {
             if(formatName(recipe.appliance).includes(formatName(tag))) {
+                if(displayArticle.innerHTML.includes(recipe.appliance)){
+                    return;
+                }
                 const recipeModel = recipesDatas(recipe);
                 const recipeCardDOM = recipeModel.getRecipeCard();
                 displayArticle.appendChild(recipeCardDOM);
             }
         });
     });
-
- }
- function testUstensils(recipes, arrayTags) {
+}
+function testUstensils(recipes, arrayUstensil) {
     recipes.forEach((recipe) => {
-        arrayTags.forEach((tag) => {
+        arrayUstensil.forEach((tag) => {
             recipe.ustensils.forEach((ustensil) => {
                 if(formatName(ustensil).includes(formatName(tag))) {
+                    if(displayArticle.innerHTML.includes(recipe.ustensils)){
+                        return;
+                    }
                     const recipeModel = recipesDatas(recipe);
                     const recipeCardDOM = recipeModel.getRecipeCard();
                     displayArticle.appendChild(recipeCardDOM);
@@ -60,7 +63,7 @@ function displayDataRecipes(recipes, arrayTags) {;
             });
         });
     });
- }
+}
 
 const _displayDataRecipes = displayDataRecipes;
 export { _displayDataRecipes as displayDataRecipes };

@@ -1,3 +1,4 @@
+// import des fichiers 
 import { displayDataRecipes } from "./features/displayRecipes.js"
 import { filterIngredients } from "./features/filterIngredients.js"
 import { filterAppliances } from "./features/filterAppliances.js"
@@ -12,7 +13,7 @@ async function getRecipes() {
     return recipes;
 }
 
-
+// point d'entrée de l'application
 function main() {
     getRecipes()
     .then((recipes) => {
@@ -22,5 +23,5 @@ function main() {
         filterUstensils(recipes);
     });
 }
-
+//initialisation de l'application
 main();

@@ -56,16 +56,17 @@ function filterIngredients(recipes) {
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
             if(e.key ==='Enter') {
-                const userSearch = formatName(e.target.value);
+                const userSearch = e.target.value;
                 inputIngredients.value = "";
                 if(inputIngredients.value === "") {
+                    containerIngredients.innerHTML = "";
                     displayIngredients(uniqIngredients);
                 }
                 allIngredients.forEach((ingredient) => {
                     if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient))) {
                         return;
-                    } 
-                    arrayIngredientsSave.push(userSearch);
+                    }
+                    arrayIngredientsSave.push(ingredient);
                     displayTagFilter(userSearch);                    
                 });
             }
@@ -80,31 +81,27 @@ function filterIngredients(recipes) {
                 allIngredients.forEach((ingredient) => {
                     if (arrayIngredientsSave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
-                    } 
+                    }
                     arrayIngredientsSave.push(userSearch);
                     displayTagFilter(userSearch);
                 });     
             });
         });
     }
-    function displayTagFilter(userSearch) {
+    function displayTagFilter(paramSearch) {
         const saveSearch__container = document.createElement('div');
         const fillIngredient = document.createElement('p');
         
         saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
         fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-        fillIngredient.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
 
-        displayDataRecipes(recipes, arrayIngredientsSave);
         deleteSearch(recipes, arrayIngredientsSave);
-    
+        displayDataRecipes(recipes, arrayIngredientsSave);
     }
-
- 
-
-
+    
     getIngredients(recipes);
     displayIngredients(uniqIngredients);
     searchIngredients();

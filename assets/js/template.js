@@ -1,4 +1,4 @@
-
+// modèle de données pour les recettes
 function recipesDatas(data) {
     const { id, name, serving, ingredients, time, description, appliance, ustensils } = data;
     
@@ -35,7 +35,7 @@ function recipesDatas(data) {
         
         return article
     }
-
+    // fonction du modèle pour lister les ingrédients
     function listIngredients() {
         const ulIngredients = document.createElement('ul');
         ulIngredients.setAttribute('class', 'listIngredients');

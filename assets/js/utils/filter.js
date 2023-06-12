@@ -1,3 +1,4 @@
+// fonction pour le deploiement des filtres au clic 
 function deployFilter(element1, element2) {
     const btnFilterClic = document.querySelector(`${element1}`);
     const chevron = btnFilterClic.querySelector('.triDown');
