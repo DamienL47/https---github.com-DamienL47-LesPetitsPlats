@@ -11,7 +11,7 @@ function filterIngredients(recipes) {
 
     let allIngredients = [];
     let uniqIngredients;
-
+    // read all ingredients
     function getIngredients(recipes) {
         for(let i = 0; i < recipes.length; i++) {
             for(let j = 0; j < recipes[i].ingredients.length; j++) {
@@ -20,7 +20,7 @@ function filterIngredients(recipes) {
             }
         }
     }
-
+    
     function displayIngredients(ingredients) {         
         ingredients.forEach((ingredient) => {  
             const paragraph = document.createElement('p');
@@ -50,9 +50,9 @@ function filterIngredients(recipes) {
             displayIngredients(filteredIngredients);  
         });     
     }
-    
-    let arrayIngredientsSave = [];
-    
+
+    let arrayIngredientsSave = []; 
+
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
             if(e.key ==='Enter') {
@@ -67,17 +67,17 @@ function filterIngredients(recipes) {
                         return;
                     }
                     arrayIngredientsSave.push(ingredient);
-                    displayTagFilter(userSearch);                    
+                    displayTagFilter(userSearch);                       
                 });
             }
-        });
+        });        
     }
 
     function saveSearchIngredientClick() {
         const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
         pIngredients.forEach((pIngredient) => {
-            pIngredient.addEventListener('click', (e) => {
-                const userSearch = e.target.textContent;
+            pIngredient.addEventListener('click', (event) => {
+                const userSearch = event.target.textContent;
                 allIngredients.forEach((ingredient) => {
                     if (arrayIngredientsSave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
@@ -88,25 +88,26 @@ function filterIngredients(recipes) {
             });
         });
     }
+
     function displayTagFilter(paramSearch) {
-        const saveSearch__container = document.createElement('div');
         const fillIngredient = document.createElement('p');
+        const saveSearch__container = document.createElement('div');
         
         saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
         fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-        fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`; 
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
-
-        deleteSearch(recipes, arrayIngredientsSave);
         displayDataRecipes(recipes, arrayIngredientsSave);
     }
+
     
     getIngredients(recipes);
     displayIngredients(uniqIngredients);
     searchIngredients();
     saveSearchIngredient(); 
     saveSearchIngredientClick();
-}
+    deleteSearch(arrayIngredientsSave);
+}   
 
 export { filterIngredients }
