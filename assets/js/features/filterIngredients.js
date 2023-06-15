@@ -61,6 +61,7 @@ function filterIngredients(recipes) {
                 if(inputIngredients.value === "") {
                     containerIngredients.innerHTML = "";
                     displayIngredients(uniqIngredients);
+                    saveSearchIngredientClick();
                 }
                 allIngredients.forEach((ingredient) => {
                     if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient)) || formatName(userSearch) != formatName(ingredient)) {

@@ -57,6 +57,7 @@ function filterAppliances(recipes) {
                     filteredAppliancesClick.push(userSearch);
                     containerAppliances.innerHTML = "";
                     displayAppliances(allAppliances);
+                    saveSearchAppliancesClick();
                 }
                 allAppliances.forEach((appliance) => {
                     if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredAppliances.includes(appliance)) {
@@ -74,6 +75,8 @@ function filterAppliances(recipes) {
                 displayDataRecipes(recipes, filteredAppliances);
             }
         });
+    }
+    function saveSearchAppliancesClick(){
         const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
         pAppliances.forEach((pAppliance) => {
             pAppliance.addEventListener('click', (e) => {
@@ -102,6 +105,7 @@ function filterAppliances(recipes) {
     displayAppliances(allAppliances);
     searchAppliances();
     saveSearchAppliances();
+    saveSearchAppliancesClick();
     deleteSearch(recipes, filteredAppliancesClick);
 }
 
