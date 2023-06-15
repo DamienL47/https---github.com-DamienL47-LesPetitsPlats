@@ -11,17 +11,17 @@ function deleteSearch(recipes, array) {
         if(target) {
             const tag = target.parentElement.textContent;
             const div = target.parentElement.parentElement;
-            console.log(array);
-            if(array) {
-                array.forEach((ingredient, index) => {
-                    if(formatName(ingredient[index]).includes(formatName(tag))) {
-                        array.splice(tag[index], 1);
-                        console.log(array.splice(ingredient[index], 0));
-                        div.remove();
-                    }
+            
+            array.forEach((ingredient, index) => {
+                if(formatName(ingredient).includes(formatName(tag))) {
+                    index = array.indexOf(ingredient);
+                    array.splice(index, 1);
+                    div.remove();
                     displayDataRecipes(recipes, array);
-                });
-            }
+                } else {
+                    displayDataRecipes(recipes);
+                }
+            });           
         }
     });
 }

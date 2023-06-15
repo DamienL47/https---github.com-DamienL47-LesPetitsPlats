@@ -7,11 +7,14 @@ function displayDataRecipes(recipes, filtersTags) {;
     const displayArticle = document.getElementById('recipesDisplay');
     displayArticle.innerHTML = "";
 
+    const displayedRecipes = new Set();
+
     if(!filtersTags || filtersTags.length === 0) {
         recipes.forEach((recipe) => {
             const recipeModel = recipesDatas(recipe);
             const recipeCardDOM = recipeModel.getRecipeCard();
             displayArticle.appendChild(recipeCardDOM);
+            displayedRecipes.add(recipe.name);
         });
     } 
     if(filtersTags){
@@ -19,49 +22,43 @@ function displayDataRecipes(recipes, filtersTags) {;
             recipes.forEach((recipe) => {
                 recipe.ingredients.forEach((ingredient) => {
                     if(formatName(ingredient.ingredient).includes(formatName(tag))) {
-                        if(recipes.name === recipe.name) {
+                        if(displayedRecipes.has(recipe.name)) {
                             return;
                         }
                         const recipeModel = recipesDatas(recipe);
                         const recipeCardDOM = recipeModel.getRecipeCard();
-                        displayArticle.appendChild(recipeCardDOM);    
+                        displayArticle.appendChild(recipeCardDOM); 
+                        displayedRecipes.add(recipe.name);   
+                    }
+                });
+            });
+            recipes.forEach((recipe) => {
+                if(formatName(recipe.appliance).includes(formatName(tag))) {
+                    if(displayedRecipes.has(recipe.name)) {
+                        return;
+                    }
+                    const recipeModel = recipesDatas(recipe);
+                    const recipeCardDOM = recipeModel.getRecipeCard();
+                    displayArticle.appendChild(recipeCardDOM);
+                    displayedRecipes.add(recipe.name);
+                }
+            });
+            recipes.forEach((recipe) => {
+                recipe.ustensils.forEach((ustensil) => {
+                    if(formatName(ustensil).includes(formatName(tag))) {
+                        if(displayedRecipes.has(recipe.name)) {
+                            return;
+                        }
+                        const recipeModel = recipesDatas(recipe);
+                        const recipeCardDOM = recipeModel.getRecipeCard();
+                        displayArticle.appendChild(recipeCardDOM);
+                        displayedRecipes.add(recipe.name);
                     }
                 });
             });
         });
     }
 }
-    
-
-
-
-// function testAppliance(recipes, arrayAppliance) {
-//     recipes.forEach((recipe) => {
-//         arrayAppliance.forEach((tag) => {
-//             if(formatName(recipe.appliance).includes(formatName(tag))) {
-             
-                // const recipeModel = recipesDatas(recipe);
-                // const recipeCardDOM = recipeModel.getRecipeCard();
-                // displayArticle.appendChild(recipeCardDOM);
-//             }
-//         });
-//     });
-// }
-
-// function testUstensils(recipes, arrayUstensil) {
-//     recipes.forEach((recipe) => {
-//         arrayUstensil.forEach((tag) => {
-//             recipe.ustensils.forEach((ustensil) => {
-//                 if(formatName(ustensil).includes(formatName(tag))) {
-                    
-//                     const recipeModel = recipesDatas(recipe);
-//                     const recipeCardDOM = recipeModel.getRecipeCard();
-//                     displayArticle.appendChild(recipeCardDOM);
-//                 }    
-//             });
-//         });
-//     });
-// }
 
 const _displayDataRecipes = displayDataRecipes;
 export { _displayDataRecipes as displayDataRecipes };

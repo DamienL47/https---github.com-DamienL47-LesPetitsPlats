@@ -43,7 +43,7 @@ function filterIngredients(recipes) {
             ) 
             if(filteredIngredients.length === 0 && userSearch.length > 2) {
                 const paragraph = document.createElement('p');
-                paragraph.setAttribute('class', 'filterSearch__ingredients--p');
+                paragraph.setAttribute('class', 'filterSearch__ingredients--p nullData');
                 paragraph.textContent = 'Aucun ingrédient trouvé';
                 containerIngredients.appendChild(paragraph);
             } 
@@ -63,7 +63,7 @@ function filterIngredients(recipes) {
                     displayIngredients(uniqIngredients);
                 }
                 allIngredients.forEach((ingredient) => {
-                    if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient))) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient)) || !ingredient.includes(userSearch)) {
                         return;
                     }
                     arrayIngredientsSave.push(ingredient);
@@ -107,7 +107,7 @@ function filterIngredients(recipes) {
     searchIngredients();
     saveSearchIngredient(); 
     saveSearchIngredientClick();
-    deleteSearch(arrayIngredientsSave);
+    deleteSearch(recipes, arrayIngredientsSave);
 }   
 
 export { filterIngredients }

@@ -1,5 +1,5 @@
 import { formatName } from '../utils/formatting.js';
-// import { deleteSearch } from '../utils/deleteSearch.js';
+import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
 
 function filterAppliances(recipes) {
@@ -55,6 +55,7 @@ function filterAppliances(recipes) {
                 inputAppliances.value = "";
                 if(inputAppliances.value === "") {
                     filteredAppliancesClick.push(userSearch);
+                    containerAppliances.innerHTML = "";
                     displayAppliances(allAppliances);
                 }
                 allAppliances.forEach((appliance) => {
@@ -101,6 +102,7 @@ function filterAppliances(recipes) {
     displayAppliances(allAppliances);
     searchAppliances();
     saveSearchAppliances();
+    deleteSearch(recipes, filteredAppliancesClick);
 }
 
 export { filterAppliances }
