@@ -2,6 +2,7 @@
 import { formatName } from '../utils/formatting.js';
 import { displayDataRecipes } from "./displayRecipes.js";
 import { deleteSearch } from '../utils/deleteSearch.js';
+import { arrayTags, arraySave } from '../utils/arrayTags.js';
 
 function filterIngredients(recipes) {
 
@@ -51,7 +52,7 @@ function filterIngredients(recipes) {
         });     
     }
 
-    let arrayIngredientsSave = []; 
+    // let arraySave = []; 
 
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
@@ -67,8 +68,9 @@ function filterIngredients(recipes) {
                     if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient)) || formatName(userSearch) != formatName(ingredient)) {
                         return;
                     }
-                    arrayIngredientsSave.push(ingredient);
-                    displayTagFilter(userSearch);                       
+                    arrayTags(arraySave, ingredient)
+                    // arraySave.push(ingredient);
+                    displayTagFilter(userSearch);                                           
                 });
             }
         });        
@@ -80,10 +82,11 @@ function filterIngredients(recipes) {
             pIngredient.addEventListener('click', (event) => {
                 const userSearch = event.target.textContent;
                 allIngredients.forEach((ingredient) => {
-                    if (arrayIngredientsSave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
+                    if (arraySave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     }
-                    arrayIngredientsSave.push(userSearch);
+                    arrayTags(arraySave, userSearch)
+                    // arraySave.push(userSearch);
                     displayTagFilter(userSearch);
                 });     
             });
@@ -99,7 +102,7 @@ function filterIngredients(recipes) {
         fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`; 
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
-        displayDataRecipes(recipes, arrayIngredientsSave);
+        displayDataRecipes(recipes, arraySave);
     }
 
     
@@ -108,7 +111,7 @@ function filterIngredients(recipes) {
     searchIngredients();
     saveSearchIngredient(); 
     saveSearchIngredientClick();
-    deleteSearch(recipes, arrayIngredientsSave);
+    deleteSearch(recipes, arraySave);
 }   
 
 export { filterIngredients }

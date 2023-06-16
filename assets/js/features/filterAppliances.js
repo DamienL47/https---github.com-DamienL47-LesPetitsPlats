@@ -1,6 +1,7 @@
 import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
+import { arrayTags, arraySave } from '../utils/arrayTags.js';
 
 function filterAppliances(recipes) {
 
@@ -29,40 +30,40 @@ function filterAppliances(recipes) {
             containerAppliances.appendChild(paragraph);
         });
     }
-    let filteredAppliances = [];
+    // let arraySave = [];
     function searchAppliances(){
         inputAppliances.addEventListener('input', (e) => {
             containerAppliances.innerHTML = "";
             const userSearch = formatName(e.target.value);
-            filteredAppliances = allAppliances.filter(appliance => 
+            arraySave = allAppliances.filter(appliance => 
                 formatName(appliance).match(userSearch)
             )
-            if(filteredAppliances.length === 0) {
+            if(arraySave.length === 0) {
                 const paragraph2 = document.createElement('p');
                 paragraph2.setAttribute('class', 'filterSearch__appareils--p');
                 paragraph2.textContent = 'Aucun appareil trouvé';
                 containerAppliances.appendChild(paragraph2);
             } 
-            displayAppliances(filteredAppliances);       
+            displayAppliances(arraySave);       
         });
     }
 
-    let filteredAppliancesClick = [];
     function saveSearchAppliances(){
         inputAppliances.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
                 const userSearch = e.target.value;
                 inputAppliances.value = "";
                 if(inputAppliances.value === "") {
-                    filteredAppliancesClick.push(userSearch);
                     containerAppliances.innerHTML = "";
                     displayAppliances(allAppliances);
                     saveSearchAppliancesClick();
                 }
                 allAppliances.forEach((appliance) => {
-                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredAppliances.includes(appliance)) {
+                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !arraySave.includes(appliance)) {
                         return;
                     } 
+                    arrayTags(arraySave, appliance);
+                    // arraySave.push(appliance)
                     const saveSearch__container = document.createElement('div');
                     const fillAppliance = document.createElement('p');
                     
@@ -72,7 +73,7 @@ function filterAppliances(recipes) {
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillAppliance); 
                 });
-                displayDataRecipes(recipes, filteredAppliances);
+                displayDataRecipes(recipes, arraySave);
             }
         });
     }
@@ -80,22 +81,23 @@ function filterAppliances(recipes) {
         const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
         pAppliances.forEach((pAppliance) => {
             pAppliance.addEventListener('click', (e) => {
-                const userClickAppliance = e.target.textContent;
-                filteredAppliancesClick.push(userClickAppliance.toLowerCase());
+                const userSearch = e.target.textContent;
                 allAppliances.forEach(() => {
-                    if (sectionFilterSave.innerHTML.includes(userClickAppliance)) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     } 
+                    arrayTags(arraySave, userSearch);
+                    // arraySave.push(userSearch);
                     const saveSearch__container = document.createElement('div');
                     const fillAppliance = document.createElement('p');
                     
                     saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
                     fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                    fillAppliance.innerHTML = `${userClickAppliance} <i class="fa-regular fa-circle-xmark"></i>`;                
+                    fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillAppliance); 
                 });
-                displayDataRecipes(recipes, filteredAppliancesClick);
+                displayDataRecipes(recipes, arraySave);
             });
         });
     }
@@ -106,7 +108,7 @@ function filterAppliances(recipes) {
     searchAppliances();
     saveSearchAppliances();
     saveSearchAppliancesClick();
-    deleteSearch(recipes, filteredAppliancesClick);
+    deleteSearch(recipes, arraySave);
 }
 
 export { filterAppliances }
