@@ -1,52 +1,63 @@
 import { recipesDatas } from '../template.js';
-import { deleteSearch } from '../utils/deleteSearch.js';
-
-
+import { formatName } from '../utils/formatting.js';
 
 //affichage des recettes 
 function displayDataRecipes(recipes, filtersTags) {;
-   
+
     const displayArticle = document.getElementById('recipesDisplay');
     displayArticle.innerHTML = "";
-    
+
+    const displayedRecipes = new Set();
+
     if(!filtersTags || filtersTags.length === 0) {
         recipes.forEach((recipe) => {
             const recipeModel = recipesDatas(recipe);
             const recipeCardDOM = recipeModel.getRecipeCard();
             displayArticle.appendChild(recipeCardDOM);
+            displayedRecipes.add(recipe.name);
         });
-        return;
     } 
-    recipes.forEach((recipe) => {
-        let showRecipe = false;
-        for(let i = 0; i < recipe.ingredients.length; i++) {
-            for(let j = 0; j < filtersTags.length; j++) {
-                if(recipe.ingredients[i].ingredient.toLowerCase().includes(filtersTags[j])) {
-                    showRecipe = true;
-                    break;
+    if(filtersTags){
+        filtersTags.forEach((tag) => {
+            recipes.forEach((recipe) => {
+                recipe.ingredients.forEach((ingredient) => {
+                    if(formatName(ingredient.ingredient).includes(formatName(tag))) {
+                        if(displayedRecipes.has(recipe.name)) {
+                            return;
+                        }
+                        const recipeModel = recipesDatas(recipe);
+                        const recipeCardDOM = recipeModel.getRecipeCard();
+                        displayArticle.appendChild(recipeCardDOM); 
+                        displayedRecipes.add(recipe.name);   
+                    }
+                });
+            });
+            recipes.forEach((recipe) => {
+                if(formatName(recipe.appliance).includes(formatName(tag))) {
+                    if(displayedRecipes.has(recipe.name)) {
+                        return;
+                    }
+                    const recipeModel = recipesDatas(recipe);
+                    const recipeCardDOM = recipeModel.getRecipeCard();
+                    displayArticle.appendChild(recipeCardDOM);
+                    displayedRecipes.add(recipe.name);
                 }
-            }
-        }
-        if(!showRecipe) {   
-            for(let k = 0; k < filtersTags.length; k++) {
-                if(recipe.appliance.includes(filtersTags[k])) {
-                    showRecipe = true;
-                    break;
-                }
-            }
-            
-            for(let l = 0; l < recipe.ustensils.length; l++) {
-                if(recipe.ustensils[l].toLowerCase().includes(filtersTags[l])) {
-                    showRecipe = true;
-                }
-            }
-        }
-        if(showRecipe) {
-            const recipeModel = recipesDatas(recipe);
-            const recipeCardDOM = recipeModel.getRecipeCard();
-            displayArticle.appendChild(recipeCardDOM);
-        }
-    });  
+            });
+            recipes.forEach((recipe) => {
+                recipe.ustensils.forEach((ustensil) => {
+                    if(formatName(ustensil).includes(formatName(tag))) {
+                        if(displayedRecipes.has(recipe.name)) {
+                            return;
+                        }
+                        const recipeModel = recipesDatas(recipe);
+                        const recipeCardDOM = recipeModel.getRecipeCard();
+                        displayArticle.appendChild(recipeCardDOM);
+                        displayedRecipes.add(recipe.name);
+                    }
+                });
+            });
+        });
+    }
 }
 
 const _displayDataRecipes = displayDataRecipes;

@@ -1,6 +1,7 @@
 import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
+import { arrayTags, arraySave } from '../utils/arrayTags.js';
 
 function filterUstensils(recipes) {
 
@@ -27,7 +28,9 @@ function filterUstensils(recipes) {
             containerUstensils.appendChild(paragraph);
         });
     }
+
     let filteredUstensils = [];
+    
     function searchUstensils(){
         inputUstensils.addEventListener('input', (e) => {
             containerUstensils.innerHTML = "";
@@ -44,19 +47,23 @@ function filterUstensils(recipes) {
             displayUstensils(filteredUstensils);       
         });
     }
-    
+
     function saveSearchUstensils(){
         inputUstensils.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
                 const userSearch = e.target.value;
                 inputUstensils.value = "";
                 if(inputUstensils.value === "") {
+                    containerUstensils.innerHTML = "";
                     displayUstensils(allUstensils);
+                    saveSearchUstensilsClick();
                 }
                 allUstensils.forEach((ustensil) => {
                     if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredUstensils.includes(ustensil)) {
                         return;
                     } 
+                    arrayTags(arraySave, ustensil);
+                    // arraySave.push(ustensil);
                     const saveSearch__container = document.createElement('div');
                     const fillUstensil = document.createElement('p');
                     
@@ -67,60 +74,39 @@ function filterUstensils(recipes) {
                     saveSearch__container.appendChild(fillUstensil); 
                 });
                 displayDataRecipes(recipes, filteredUstensils);
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     console.log(recipe)
-                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     ustensils.forEach((ustensil) => {
-                //         ustensil = ustensil.querySelector('p').textContent;
-                //         if(!formatName(ustensil).match(userSearch)) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
             }
         });
+    }
+    function saveSearchUstensilsClick(){
         const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
         pUstensils.forEach((pUstensil) => {
             pUstensil.addEventListener('click', (e) => {
-                const userClickUstensil = e.target.textContent;
+                const userSearch = e.target.textContent;
                 allUstensils.forEach(() => {
-                    if (sectionFilterSave.innerHTML.includes(userClickUstensil)) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     } 
+                    arrayTags(arraySave, userSearch);
+                    // arraySave.push(userSearch);
                     const saveSearch__container = document.createElement('div');
                     const fillUstensil = document.createElement('p');
                     
                     saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
                     fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userClickUstensil} <i class="fa-regular fa-circle-xmark"></i>`;                
+                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillUstensil); 
                 });
-                displayDataRecipes(recipes, filteredUstensils);
-                // sectionFilterSave.classList.add('activeUstensils');
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const ustensils = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     ustensils.forEach((ustensil) => {
-                //         ustensil = ustensil.querySelector('p').textContent;
-                //         if(!formatName(ustensil).match(formatName(userClickUstensil))) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
+                displayDataRecipes(recipes, arraySave);
             });
         });
     }
-    deleteSearch();
+
     getUstensils(recipes);
     displayUstensils(allUstensils);
     searchUstensils();
     saveSearchUstensils();
+    saveSearchUstensilsClick();
+    deleteSearch(recipes, arraySave);
 }
-
 export { filterUstensils };

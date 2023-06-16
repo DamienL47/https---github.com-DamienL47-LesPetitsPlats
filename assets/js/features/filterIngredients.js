@@ -1,111 +1,117 @@
 
 import { formatName } from '../utils/formatting.js';
+import { displayDataRecipes } from "./displayRecipes.js";
 import { deleteSearch } from '../utils/deleteSearch.js';
-import { displayDataRecipes } from "./displayRecipes.js"
+import { arrayTags, arraySave } from '../utils/arrayTags.js';
 
 function filterIngredients(recipes) {
 
-let inputIngredients = document.getElementById('ingredients');
-const containerIngredients = document.querySelector('.filterSearch__ingredients--container');
-const sectionFilterSave = document.getElementById('saveSearch__filter');
-const displayArticle = document.getElementById('recipesDisplay');
+    let inputIngredients = document.getElementById('ingredients');
+    const containerIngredients = document.querySelector('.filterSearch__ingredients--container');
+    const sectionFilterSave = document.getElementById('saveSearch__filter');
 
-let allIngredients = [];
-
-function getIngredients(recipes) {
-    recipes.forEach((ingredients) => {
-        allIngredients = allIngredients.concat(ingredients.ingredients);
-    });
-
-}
-
-function displayIngredients(ingredients) {         
-    ingredients.forEach((ingredient) => {  
-        const paragraph = document.createElement('p');
-        if(containerIngredients.innerHTML.includes(ingredient.ingredient)) {
-            return;
-        }
-        paragraph.setAttribute('class', 'filterSearch__ingredients--p');
-        paragraph.textContent = ingredient.ingredient;
-        containerIngredients.appendChild(paragraph);
-    });
-}
-
-let filteredIngredients = [];
-
-function searchIngredients(){
-    inputIngredients.addEventListener('input', (e) => {
-        containerIngredients.innerHTML = "";
-        const userSearch = formatName(e.target.value);
-        filteredIngredients = allIngredients.filter(ingredient => 
-            formatName(ingredient.ingredient).match(userSearch)
-        ) 
-        if(filteredIngredients.length === 0) {
-            const paragraph2 = document.createElement('p');
-            paragraph2.setAttribute('class', 'filterSearch__ingredients--p');
-            paragraph2.textContent = 'Aucun ingrédient trouvé';
-            containerIngredients.appendChild(paragraph2);
-        } 
-        displayIngredients(filteredIngredients);  
-    });     
-}
-
-function saveSearchIngredient() {
-    inputIngredients.addEventListener('keydown', (e) => {        
-        if(e.key ==='Enter') {
-            const userSearch = e.target.value;
-            inputIngredients.value = "";
-            if(inputIngredients.value === "") {
-                displayIngredients(allIngredients);
-                filteredIngredients.push(userSearch);
+    let allIngredients = [];
+    let uniqIngredients;
+    // read all ingredients
+    function getIngredients(recipes) {
+        for(let i = 0; i < recipes.length; i++) {
+            for(let j = 0; j < recipes[i].ingredients.length; j++) {
+                allIngredients.push(recipes[i].ingredients[j].ingredient);
+                uniqIngredients = [...new Set(allIngredients)]
             }
-            allIngredients.forEach((ingredient) => {
-                if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredIngredients.includes(ingredient)) {
-                    return;
-                } 
-                const saveSearch__container = document.createElement('div');
-                const fillIngredient = document.createElement('p');
-                
-                saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
-                fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-                fillIngredient.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                sectionFilterSave.appendChild(saveSearch__container); 
-                saveSearch__container.appendChild(fillIngredient); 
-            });
-            displayDataRecipes(recipes, filteredIngredients);
         }
-    });
-    const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
-    let filteredIngredientClick = [];
-    pIngredients.forEach((pIngredient) => {
-        pIngredient.addEventListener('click', (e) => {
-            const userClick = e.target.textContent;
-            filteredIngredientClick.push(userClick.toLowerCase());
-            allIngredients.forEach(() => {
-                if (sectionFilterSave.innerHTML.includes(userClick)) {
-                    return;
-                } 
-                const saveSearch__container = document.createElement('div');
-                const fillIngredient = document.createElement('p');
-                
-                saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
-                fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
-                fillIngredient.innerHTML = `${userClick} <i class="fa-regular fa-circle-xmark"></i>`;                
-                sectionFilterSave.appendChild(saveSearch__container); 
-                saveSearch__container.appendChild(fillIngredient); 
-            });
-            displayDataRecipes(recipes, filteredIngredientClick);       
+    }
+    
+    function displayIngredients(ingredients) {         
+        ingredients.forEach((ingredient) => {  
+            const paragraph = document.createElement('p');
+            paragraph.setAttribute('class', 'filterSearch__ingredients--p');
+            paragraph.textContent = ingredient;
+            containerIngredients.appendChild(paragraph);
         });
-    });
-}
+    }
 
-getIngredients(recipes);
-displayIngredients(allIngredients);
-searchIngredients();
-saveSearchIngredient(); 
-deleteSearch();
+    let filteredIngredients = [];
 
+    function searchIngredients(){
+        inputIngredients.addEventListener('input', (e) => {
+            const userSearch = formatName(e.target.value);
+            if(userSearch.length > 2) {
+                containerIngredients.innerHTML = "";
+            }
+            filteredIngredients = uniqIngredients.filter(ingredient => 
+                formatName(ingredient).match(userSearch)
+            ) 
+            if(filteredIngredients.length === 0 && userSearch.length > 2) {
+                const paragraph = document.createElement('p');
+                paragraph.setAttribute('class', 'filterSearch__ingredients--p');
+                paragraph.textContent = 'Aucun ingrédient trouvé';
+                containerIngredients.appendChild(paragraph);
+            } 
+            displayIngredients(filteredIngredients);  
+        });     
+    }
 
-}
+    // let arraySave = []; 
+
+    function saveSearchIngredient() {
+        inputIngredients.addEventListener('keydown', (e) => {        
+            if(e.key ==='Enter') {
+                const userSearch = e.target.value;
+                inputIngredients.value = "";
+                if(inputIngredients.value === "") {
+                    containerIngredients.innerHTML = "";
+                    displayIngredients(uniqIngredients);
+                    saveSearchIngredientClick();
+                }
+                allIngredients.forEach((ingredient) => {
+                    if (sectionFilterSave.innerHTML.includes(userSearch) || sectionFilterSave.innerHTML.includes(formatName(ingredient)) || formatName(userSearch) != formatName(ingredient)) {
+                        return;
+                    }
+                    arrayTags(arraySave, ingredient)
+                    // arraySave.push(ingredient);
+                    displayTagFilter(userSearch);                                           
+                });
+            }
+        });        
+    }
+
+    function saveSearchIngredientClick() {
+        const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
+        pIngredients.forEach((pIngredient) => {
+            pIngredient.addEventListener('click', (event) => {
+                const userSearch = event.target.textContent;
+                allIngredients.forEach((ingredient) => {
+                    if (arraySave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
+                        return;
+                    }
+                    arrayTags(arraySave, userSearch)
+                    // arraySave.push(userSearch);
+                    displayTagFilter(userSearch);
+                });     
+            });
+        });
+    }
+
+    function displayTagFilter(paramSearch) {
+        const fillIngredient = document.createElement('p');
+        const saveSearch__container = document.createElement('div');
+        
+        saveSearch__container.setAttribute('class', 'filterSearch__ingredientsSave--container');
+        fillIngredient.setAttribute('class', 'filterSearch__ingredients--save');
+        fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`; 
+        sectionFilterSave.appendChild(saveSearch__container); 
+        saveSearch__container.appendChild(fillIngredient);
+        displayDataRecipes(recipes, arraySave);
+    }
+
+    
+    getIngredients(recipes);
+    displayIngredients(uniqIngredients);
+    searchIngredients();
+    saveSearchIngredient(); 
+    saveSearchIngredientClick();
+    deleteSearch(recipes, arraySave);
+}   
 
 export { filterIngredients }

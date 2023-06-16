@@ -2,9 +2,8 @@ import { displayDataRecipes } from "./displayRecipes.js";
 import { formatName } from "../utils/formatting.js";
 
 //fonction de recherche globale
-
 function globalSearch(recipes) {
-    console.log(recipes);
+
     const searchInput = document.getElementById('searchBar');
     const recipeEmpty = document.getElementById('filterSearch');
     const h3 = document.createElement('h3');
@@ -16,15 +15,24 @@ function globalSearch(recipes) {
             recipes.forEach((recipe) => {
                 recipe.ingredients.forEach((ingredient) => {
                     if (formatName(ingredient.ingredient).includes(searchValue)) {
+                        if(recipesFilter.includes(recipe)) {
+                            return;
+                        }
                         recipesFilter.push(recipe);
                     }
                 });
                 recipe.ustensils.forEach((ustensil) => {
                     if (formatName(ustensil).includes(searchValue)) {
+                        if(recipesFilter.includes(recipe)) {
+                            return;
+                        }
                         recipesFilter.push(recipe);
                     }
                 });
                 if (formatName(recipe.name).includes(searchValue) || formatName(recipe.description).includes(searchValue) || formatName(recipe.appliance).includes(searchValue)) {
+                    if(recipesFilter.includes(recipe)) {
+                        return;
+                    }
                     recipesFilter.push(recipe);
                 }
             }); 
