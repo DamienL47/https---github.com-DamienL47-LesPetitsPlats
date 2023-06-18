@@ -47,9 +47,13 @@ function filterIngredients(recipes) {
                 paragraph.setAttribute('class', 'filterSearch__ingredients--p');
                 paragraph.textContent = 'Aucun ingrédient trouvé';
                 containerIngredients.appendChild(paragraph);
-            } 
-            displayIngredients(filteredIngredients);  
-        });     
+            }  
+            displayIngredients(filteredIngredients);
+            if(userSearch.length === 0) {
+                containerIngredients.innerHTML = "";
+                displayIngredients(uniqIngredients);
+            }
+        });    
     }
 
     // let arraySave = []; 
@@ -69,7 +73,6 @@ function filterIngredients(recipes) {
                         return;
                     }
                     arrayTags(arraySave, ingredient)
-                    // arraySave.push(ingredient);
                     displayTagFilter(userSearch);                                           
                 });
             }
@@ -86,7 +89,6 @@ function filterIngredients(recipes) {
                         return;
                     }
                     arrayTags(arraySave, userSearch)
-                    // arraySave.push(userSearch);
                     displayTagFilter(userSearch);
                 });     
             });

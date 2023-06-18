@@ -58,6 +58,7 @@ header {
 .filterSearch__ingredients, 
 .filterSearch__appareils, 
 .filterSearch__ustencils {
+    float: inline-start;
     position: relative;
     width: 15%;
     height: 3.9em;
