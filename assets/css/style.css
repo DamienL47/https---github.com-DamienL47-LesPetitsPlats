@@ -214,11 +214,11 @@ header {
     z-index: 0;
     transform: translateX(-50%);
 }
-/* @media screen and (min-width: 1200px){
+@media screen and (min-width: 1200px){
     #recipesDisplay {
         top: 380px;
     }
-} */
+}
 .recipesDisplay__article {
     width: 100%;
     min-height: 20em;

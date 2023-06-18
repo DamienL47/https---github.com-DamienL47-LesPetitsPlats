@@ -1,4 +1,3 @@
-// fonction pour le deploiement des filtres au clic 
 function deployFilter(element1, element2) {
     const btnFilterClic = document.querySelector(`${element1}`);
     const chevron = btnFilterClic.querySelector('.triDown');
@@ -6,6 +5,7 @@ function deployFilter(element1, element2) {
     btnFilterClic.addEventListener('click', () => {
         if(!chevron.classList.contains('active')) {
             chevron.classList.add('active');
+            btnFilterClic.classList.add('open');
             btnFilterClic.style.width = '50%';
             btnFilterClic.style.height = '28em';
             if(inputSearch.value == "Ingrédients") {
@@ -20,6 +20,7 @@ function deployFilter(element1, element2) {
             }
         } else {
             chevron.classList.remove('active');
+            btnFilterClic.classList.remove('open');
             btnFilterClic.style.width = '15%';
             btnFilterClic.style.height = '3.9em';
             if(inputSearch.placeholder == "Rechercher un ingrédient") {
@@ -36,4 +37,3 @@ function deployFilter(element1, element2) {
 deployFilter('.filterSearch__ingredients', '#ingredients');
 deployFilter('.filterSearch__appareils', '#appareils');
 deployFilter('.filterSearch__ustencils', '#ustencils');
-
