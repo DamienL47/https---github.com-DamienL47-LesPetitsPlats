@@ -1,30 +1,29 @@
-import { formatName } from '../utils/formatting.js';
+// import du fichier pour l'affichage des recettes
+import { displayDataRecipes } from "../features/displayRecipes.js"
+import { formatName } from "./formatting.js";
 
-function deleteSearch() {
-    const sectionFilterSave = document.getElementById('saveSearch__filter');
-    sectionFilterSave.addEventListener('click', (e) => {
-        if(e.target.classList.contains('fa-circle-xmark')) {
-            const deleteIngredient = e.target.parentElement;
-            const div = deleteIngredient.parentElement;
-            div.remove();
 
-            const tagFilter = Array.from(sectionFilterSave.children)
-            .map((filter) => formatName(filter.textContent));
 
-            const recipes = document.querySelectorAll('.recipesDisplay__article');
-            recipes.forEach((recipe) => {
-                const recipeTags = Array.from(recipe.querySelectorAll(`.recipeTags__tag`))
-                .map((tag) => formatName(tag.textContent));
-                if(!tagFilter.some(filter => !recipeTags.includes(filter))) {
-                    recipe.style.display = 'block';
+// fonction de suppression des tags de recherche et mise à jour des recettes
+function deleteSearch(recipes, array) {
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('.fa-circle-xmark');
+        if(target) {
+            const tag = target.parentElement.textContent;
+            const div = target.parentElement.parentElement;
+            
+            array.forEach((ingredient, index) => {
+                if(formatName(ingredient).includes(formatName(tag))) {
+                    index = array.indexOf(ingredient);
+                    array.splice(index, 1);
+                    div.remove();
+                    displayDataRecipes(recipes, array);
+                } else {
+                    displayDataRecipes(recipes);
                 }
-                else {
-                    recipe.style.display = 'none';
-                }         
-            });
+            });           
         }
-    }); 
+    });
 }
 
-const _deleteSearch = deleteSearch;
-export { _deleteSearch as deleteSearch };
+export { deleteSearch };

@@ -38,7 +38,8 @@ function linearSearch(recipes) {
                         recipesFilter.push(recipes[i]);
                     }
                 }
-            }   
+            }  
+            recipesFilter = [...new Set(recipesFilter)]; 
             displayDataRecipes(recipesFilter);
             
         } else {

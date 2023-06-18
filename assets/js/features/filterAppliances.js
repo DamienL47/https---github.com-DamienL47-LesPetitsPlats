@@ -1,6 +1,7 @@
 import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
+import { arrayTags, arraySave } from '../utils/arrayTags.js';
 
 function filterAppliances(recipes) {
 
@@ -8,7 +9,6 @@ function filterAppliances(recipes) {
     const inputAppliances = document.getElementById('appareils');
     const containerAppliances = document.querySelector('.filterSearch__appareils--container');
     const sectionFilterSave = document.getElementById('saveSearch__filter');
-    const displayArticle = document.getElementById('recipesDisplay');
 
     let allAppliances = [];
 
@@ -30,21 +30,21 @@ function filterAppliances(recipes) {
             containerAppliances.appendChild(paragraph);
         });
     }
-    let filteredAppliances = [];
+    // let arraySave = [];
     function searchAppliances(){
         inputAppliances.addEventListener('input', (e) => {
             containerAppliances.innerHTML = "";
             const userSearch = formatName(e.target.value);
-            filteredAppliances = allAppliances.filter(appliance => 
+            arraySave = allAppliances.filter(appliance => 
                 formatName(appliance).match(userSearch)
             )
-            if(filteredAppliances.length === 0) {
+            if(arraySave.length === 0) {
                 const paragraph2 = document.createElement('p');
                 paragraph2.setAttribute('class', 'filterSearch__appareils--p');
                 paragraph2.textContent = 'Aucun appareil trouvé';
                 containerAppliances.appendChild(paragraph2);
             } 
-            displayAppliances(filteredAppliances);       
+            displayAppliances(arraySave);       
         });
     }
 
@@ -54,12 +54,16 @@ function filterAppliances(recipes) {
                 const userSearch = e.target.value;
                 inputAppliances.value = "";
                 if(inputAppliances.value === "") {
+                    containerAppliances.innerHTML = "";
                     displayAppliances(allAppliances);
+                    saveSearchAppliancesClick();
                 }
                 allAppliances.forEach((appliance) => {
-                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredAppliances.includes(appliance)) {
+                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !arraySave.includes(appliance)) {
                         return;
                     } 
+                    arrayTags(arraySave, appliance);
+                    // arraySave.push(appliance)
                     const saveSearch__container = document.createElement('div');
                     const fillAppliance = document.createElement('p');
                     
@@ -69,60 +73,42 @@ function filterAppliances(recipes) {
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillAppliance); 
                 });
-                displayDataRecipes(recipes, filteredAppliances);
-                // j'affiche les recettes qui contiennent le ou les appareils recherché
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     appliances.forEach((appliance) => {
-                //         appliance = appliance.querySelector('p').textContent;
-                //         if(!formatName(appliance).match(userSearch)) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
+                displayDataRecipes(recipes, arraySave);
             }
         });
+    }
+    function saveSearchAppliancesClick(){
         const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
         pAppliances.forEach((pAppliance) => {
             pAppliance.addEventListener('click', (e) => {
-                const userClickAppliance = e.target.textContent;
+                const userSearch = e.target.textContent;
                 allAppliances.forEach(() => {
-                    if (sectionFilterSave.innerHTML.includes(userClickAppliance)) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     } 
+                    arrayTags(arraySave, userSearch);
+                    // arraySave.push(userSearch);
                     const saveSearch__container = document.createElement('div');
                     const fillAppliance = document.createElement('p');
                     
                     saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
                     fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                    fillAppliance.innerHTML = `${userClickAppliance} <i class="fa-regular fa-circle-xmark"></i>`;                
+                    fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
                     sectionFilterSave.appendChild(saveSearch__container); 
                     saveSearch__container.appendChild(fillAppliance); 
                 });
-                displayDataRecipes(recipes, filteredAppliances);
-                // const recipes = document.querySelectorAll('.recipesDisplay__article');
-                // recipes.forEach((recipe) => {
-                //     const appliances = recipe.querySelectorAll('.recipesDisplay__article--description');
-                //     appliances.forEach((appliance) => {
-                //         appliance = appliance.querySelector('p').textContent;
-                //         if(!formatName(appliance).match(formatName(userClickAppliance))) {
-                //             recipe.style.display = 'none';
-                //         } else {
-                //             recipe.style.display = 'block';
-                //         }
-                //     });
-                // });
+                displayDataRecipes(recipes, arraySave);
             });
         });
     }
 
-getAppliances(recipes);
-displayAppliances(allAppliances);
-searchAppliances();
-saveSearchAppliances();
-deleteSearch();
+
+    getAppliances(recipes);
+    displayAppliances(allAppliances);
+    searchAppliances();
+    saveSearchAppliances();
+    saveSearchAppliancesClick();
+    deleteSearch(recipes, arraySave);
 }
+
 export { filterAppliances }
