@@ -56,8 +56,6 @@ function filterIngredients(recipes) {
         });    
     }
 
-    // let arraySave = []; 
-
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
             if(e.key ==='Enter') {

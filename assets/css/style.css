@@ -58,12 +58,21 @@ header {
 .filterSearch__ingredients, 
 .filterSearch__appareils, 
 .filterSearch__ustencils {
-    float: inline-start;
     position: relative;
     width: 15%;
+    max-width: 50%;
     height: 3.9em;
+    max-height: 28em;
     z-index: 1;
     overflow: hidden;
+}
+.open {
+    width: auto;
+    min-width: 15%;
+    height: auto;
+    min-height: max-content;
+    margin-bottom: 20px;
+    overflow: auto;
 }
 .filterSearch__ingredients {
     background-color: #3282F7;
@@ -77,23 +86,46 @@ header {
     background-color: #ED6454;
     border-radius: 5px;
 }
-/* .open {
-    width: 50%;
-    max-width: 50%;
-    max-height: max-content;
-    overflow: hidden;
-} */
-
-#ingredients, #appareils, #ustencils{
-    position: absolute;
-    width: 80%;
+#ingredients {
+    position: sticky;
+    width: 70%;
     top: 10px;
     padding: 10px 0 10px 15px;
     font-size: 18px;
     color: #FFFFFF;
-    background: transparent;
-    border: none;
+    background: #3282F7;
+    border: #3282F7;
+    overflow: hidden;
     outline: none;
+    z-index: 10;
+} 
+
+#appareils {
+    position: sticky;
+    width: 70%;
+    top: 10px;
+    padding: 10px 0 10px 15px;
+    font-size: 18px;
+    color: #FFFFFF;
+    background: #68D9A4;
+    border: #68D9A4;
+    outline: none;
+    overflow: hidden;
+    z-index: 10;
+}
+
+#ustencils {
+    position: sticky;
+    width: 70%;
+    top: 10px;
+    padding: 10px 0 10px 15px;
+    font-size: 18px;
+    color: #FFFFFF;
+    background: #ED6454;
+    border: #ED6454;
+    outline: none;
+    overflow: hidden;
+    z-index: 10;
 }
 #ingredients::placeholder, 
 #appareils::placeholder, 
@@ -117,19 +149,21 @@ header {
 .filterSearch__ingredients--container,
 .filterSearch__appareils--container,
 .filterSearch__ustencils--container {
-    position: absolute;
-    width: 100%;
-    top: 40px;
+    position: relative;
+    width: auto;
+    height: auto;
+    top: 5px;
     font-size: .8em;
     padding-left: 15px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
 }
+
 .filterSearch__ingredients--p,
 .filterSearch__appareils--p, 
 .filterSearch__ustencils--p {
-    display: flex;
+    display: inline-block;
     width: 30%;
     margin: 20px 0 0 0;
     color: #FFFFFF;

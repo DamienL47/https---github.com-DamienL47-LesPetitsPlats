@@ -1,13 +1,13 @@
-function deployFilter(element1, element2) {
+function deployFilter(element1, element2, element3) {
     const btnFilterClic = document.querySelector(`${element1}`);
-    const chevron = btnFilterClic.querySelector('.triDown');
-    const inputSearch = btnFilterClic.querySelector(`${element2}`)
+    const inputSearch = btnFilterClic.querySelector(`${element2}`);
+    const chevron = document.querySelector('.fa-chevron-down');
+    const container = document.querySelector(`${element3}`);
     btnFilterClic.addEventListener('click', () => {
         if(!chevron.classList.contains('active')) {
-            chevron.classList.add('active');
             btnFilterClic.classList.add('open');
-            btnFilterClic.style.width = '50%';
-            btnFilterClic.style.height = '28em';
+            chevron.classList.add('active');
+            container.classList.add('open');
             if(inputSearch.value == "Ingrédients") {
                 inputSearch.value = "";
                 inputSearch.setAttribute('placeholder', 'Rechercher un ingrédient');
@@ -21,8 +21,6 @@ function deployFilter(element1, element2) {
         } else {
             chevron.classList.remove('active');
             btnFilterClic.classList.remove('open');
-            btnFilterClic.style.width = '15%';
-            btnFilterClic.style.height = '3.9em';
             if(inputSearch.placeholder == "Rechercher un ingrédient") {
                 inputSearch.value = "Ingrédients";
             } else if(inputSearch.placeholder == "Rechercher un appareil") {
@@ -34,6 +32,8 @@ function deployFilter(element1, element2) {
     });
 }
 
-deployFilter('.filterSearch__ingredients', '#ingredients');
-deployFilter('.filterSearch__appareils', '#appareils');
-deployFilter('.filterSearch__ustencils', '#ustencils');
+deployFilter('.filterSearch__ingredients', '#ingredients', '.filterSearch__ingredients--container');
+deployFilter('.filterSearch__appareils', '#appareils', '.filterSearch__appareils--container');
+deployFilter('.filterSearch__ustencils', '#ustencils', '.filterSearch__ustencils--container');
+
+
