@@ -53,6 +53,7 @@ function filterIngredients(recipes) {
                 containerIngredients.innerHTML = "";
                 displayIngredients(uniqIngredients);
             }
+            saveSearchIngredientClick();
         });    
     }
 

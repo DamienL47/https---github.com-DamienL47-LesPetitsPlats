@@ -44,7 +44,8 @@ function filterUstensils(recipes) {
                 paragraph2.textContent = 'Aucun ustensile trouvé';
                 containerUstensils.appendChild(paragraph2);
             } 
-            displayUstensils(filteredUstensils);       
+            displayUstensils(filteredUstensils);   
+            saveSearchUstensilsClick();    
         });
     }
 

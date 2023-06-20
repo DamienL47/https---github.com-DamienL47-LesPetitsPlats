@@ -71,7 +71,7 @@ header {
     min-width: 15%;
     height: auto;
     min-height: max-content;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     overflow: auto;
 }
 .filterSearch__ingredients {
@@ -100,37 +100,21 @@ header {
     z-index: 10;
 } 
 
-#appareils {
-    position: sticky;
+#appareils, #ustencils {
+    position: absolute;
     width: 70%;
     top: 10px;
     padding: 10px 0 10px 15px;
     font-size: 18px;
     color: #FFFFFF;
-    background: #68D9A4;
-    border: #68D9A4;
+    background: transparent;
+    border: none;
     outline: none;
-    overflow: hidden;
-    z-index: 10;
-}
-
-#ustencils {
-    position: sticky;
-    width: 70%;
-    top: 10px;
-    padding: 10px 0 10px 15px;
-    font-size: 18px;
-    color: #FFFFFF;
-    background: #ED6454;
-    border: #ED6454;
-    outline: none;
-    overflow: hidden;
-    z-index: 10;
 }
 #ingredients::placeholder, 
 #appareils::placeholder, 
 #ustencils::placeholder {
-    color: white;
+    color: #FFFFFF;
     opacity: .6;
 }
 
@@ -146,13 +130,23 @@ header {
     transform: rotate(-180deg);
     top: 20px;
 }
-.filterSearch__ingredients--container,
+.filterSearch__ingredients--container {
+    position: relative;
+    width: auto;
+    height: auto;
+    top: 5px;
+    font-size: .8em;
+    padding-left: 15px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
 .filterSearch__appareils--container,
 .filterSearch__ustencils--container {
     position: relative;
     width: auto;
     height: auto;
-    top: 5px;
+    top: 40px;
     font-size: .8em;
     padding-left: 15px;
     display: flex;

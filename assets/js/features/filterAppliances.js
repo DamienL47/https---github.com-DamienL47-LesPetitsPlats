@@ -30,21 +30,24 @@ function filterAppliances(recipes) {
             containerAppliances.appendChild(paragraph);
         });
     }
-    // let arraySave = [];
+
+    let filteredAppliances = [];
+    
     function searchAppliances(){
         inputAppliances.addEventListener('input', (e) => {
             containerAppliances.innerHTML = "";
             const userSearch = formatName(e.target.value);
-            arraySave = allAppliances.filter(appliance => 
+            filteredAppliances = allAppliances.filter(appliance => 
                 formatName(appliance).match(userSearch)
-            )
-            if(arraySave.length === 0) {
+                )
+            if(filteredAppliances.length === 0) {
                 const paragraph2 = document.createElement('p');
                 paragraph2.setAttribute('class', 'filterSearch__appareils--p');
                 paragraph2.textContent = 'Aucun appareil trouvé';
                 containerAppliances.appendChild(paragraph2);
             } 
-            displayAppliances(arraySave);       
+            displayAppliances(filteredAppliances);   
+            saveSearchAppliancesClick();    
         });
     }
 
@@ -87,7 +90,6 @@ function filterAppliances(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, userSearch);
-                    // arraySave.push(userSearch);
                     const saveSearch__container = document.createElement('div');
                     const fillAppliance = document.createElement('p');
                     
