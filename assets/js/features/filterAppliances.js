@@ -100,6 +100,7 @@ function filterAppliances(recipes) {
                     saveSearch__container.appendChild(fillAppliance); 
                 });
                 displayDataRecipes(recipes, arraySave);
+                displayAppliances(allAppliances);
             });
         });
     }

@@ -57,14 +57,13 @@ function filterUstensils(recipes) {
                 if(inputUstensils.value === "") {
                     containerUstensils.innerHTML = "";
                     displayUstensils(allUstensils);
-                    saveSearchUstensilsClick();
                 }
+                saveSearchUstensilsClick();
                 allUstensils.forEach((ustensil) => {
                     if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredUstensils.includes(ustensil)) {
                         return;
                     } 
                     arrayTags(arraySave, ustensil);
-                    // arraySave.push(ustensil);
                     const saveSearch__container = document.createElement('div');
                     const fillUstensil = document.createElement('p');
                     
@@ -88,7 +87,6 @@ function filterUstensils(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, userSearch);
-                    // arraySave.push(userSearch);
                     const saveSearch__container = document.createElement('div');
                     const fillUstensil = document.createElement('p');
                     
@@ -99,6 +97,7 @@ function filterUstensils(recipes) {
                     saveSearch__container.appendChild(fillUstensil); 
                 });
                 displayDataRecipes(recipes, arraySave);
+                displayUstensils(allUstensils);
             });
         });
     }

@@ -104,6 +104,7 @@ function filterIngredients(recipes) {
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
         displayDataRecipes(recipes, arraySave);
+        displayIngredients(uniqIngredients);
     }
 
     
