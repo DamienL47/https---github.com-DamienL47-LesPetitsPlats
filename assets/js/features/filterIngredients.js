@@ -47,12 +47,16 @@ function filterIngredients(recipes) {
                 paragraph.setAttribute('class', 'filterSearch__ingredients--p');
                 paragraph.textContent = 'Aucun ingrédient trouvé';
                 containerIngredients.appendChild(paragraph);
-            } 
-            displayIngredients(filteredIngredients);  
-        });     
+            }  
+            displayIngredients(filteredIngredients);
+            if(userSearch.length === 0) {
+                containerIngredients.innerHTML = "";
+                displayIngredients(uniqIngredients);
+            }
+            saveSearchIngredientClick();
+            saveSearchIngredient();
+        });    
     }
-
-    // let arraySave = []; 
 
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
@@ -69,7 +73,6 @@ function filterIngredients(recipes) {
                         return;
                     }
                     arrayTags(arraySave, ingredient)
-                    // arraySave.push(ingredient);
                     displayTagFilter(userSearch);                                           
                 });
             }
@@ -82,11 +85,11 @@ function filterIngredients(recipes) {
             pIngredient.addEventListener('click', (event) => {
                 const userSearch = event.target.textContent;
                 allIngredients.forEach((ingredient) => {
+                    saveSearchIngredient();
                     if (arraySave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     }
                     arrayTags(arraySave, userSearch)
-                    // arraySave.push(userSearch);
                     displayTagFilter(userSearch);
                 });     
             });
@@ -103,6 +106,9 @@ function filterIngredients(recipes) {
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
         displayDataRecipes(recipes, arraySave);
+        displayIngredients(uniqIngredients);
+        saveSearchIngredient(); 
+        saveSearchIngredientClick();
     }
 
     

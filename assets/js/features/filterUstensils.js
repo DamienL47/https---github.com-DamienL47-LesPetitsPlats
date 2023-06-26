@@ -44,7 +44,8 @@ function filterUstensils(recipes) {
                 paragraph2.textContent = 'Aucun ustensile trouvé';
                 containerUstensils.appendChild(paragraph2);
             } 
-            displayUstensils(filteredUstensils);       
+            displayUstensils(filteredUstensils);   
+            saveSearchUstensilsClick();    
         });
     }
 
@@ -56,24 +57,15 @@ function filterUstensils(recipes) {
                 if(inputUstensils.value === "") {
                     containerUstensils.innerHTML = "";
                     displayUstensils(allUstensils);
-                    saveSearchUstensilsClick();
                 }
+                saveSearchUstensilsClick();
                 allUstensils.forEach((ustensil) => {
                     if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !filteredUstensils.includes(ustensil)) {
                         return;
                     } 
                     arrayTags(arraySave, ustensil);
-                    // arraySave.push(ustensil);
-                    const saveSearch__container = document.createElement('div');
-                    const fillUstensil = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
-                    fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillUstensil); 
+                    displayTagUstensils(userSearch);
                 });
-                displayDataRecipes(recipes, filteredUstensils);
             }
         });
     }
@@ -87,19 +79,24 @@ function filterUstensils(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, userSearch);
-                    // arraySave.push(userSearch);
-                    const saveSearch__container = document.createElement('div');
-                    const fillUstensil = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
-                    fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillUstensil); 
+                    displayTagUstensils(userSearch);
                 });
-                displayDataRecipes(recipes, arraySave);
             });
         });
+    }
+    function displayTagUstensils(paramSearch) {
+        const saveSearch__container = document.createElement('div');
+        const fillUstensil = document.createElement('p');
+        
+        saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
+        fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
+        fillUstensil.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        sectionFilterSave.appendChild(saveSearch__container); 
+        saveSearch__container.appendChild(fillUstensil); 
+        displayDataRecipes(recipes, arraySave);
+        displayUstensils(allUstensils);
+        saveSearchUstensils();
+        saveSearchUstensilsClick();
     }
 
     getUstensils(recipes);
