@@ -54,6 +54,7 @@ function filterIngredients(recipes) {
                 displayIngredients(uniqIngredients);
             }
             saveSearchIngredientClick();
+            saveSearchIngredient();
         });    
     }
 
@@ -84,6 +85,7 @@ function filterIngredients(recipes) {
             pIngredient.addEventListener('click', (event) => {
                 const userSearch = event.target.textContent;
                 allIngredients.forEach((ingredient) => {
+                    saveSearchIngredient();
                     if (arraySave.includes(ingredient.ingredient) || sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     }
@@ -105,6 +107,8 @@ function filterIngredients(recipes) {
         saveSearch__container.appendChild(fillIngredient);
         displayDataRecipes(recipes, arraySave);
         displayIngredients(uniqIngredients);
+        saveSearchIngredient(); 
+        saveSearchIngredientClick();
     }
 
     

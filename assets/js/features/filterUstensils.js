@@ -64,16 +64,8 @@ function filterUstensils(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, ustensil);
-                    const saveSearch__container = document.createElement('div');
-                    const fillUstensil = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
-                    fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillUstensil); 
+                    displayTagUstensils(userSearch);
                 });
-                displayDataRecipes(recipes, filteredUstensils);
             }
         });
     }
@@ -87,19 +79,24 @@ function filterUstensils(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, userSearch);
-                    const saveSearch__container = document.createElement('div');
-                    const fillUstensil = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
-                    fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
-                    fillUstensil.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillUstensil); 
+                    displayTagUstensils(userSearch);
                 });
-                displayDataRecipes(recipes, arraySave);
-                displayUstensils(allUstensils);
             });
         });
+    }
+    function displayTagUstensils(paramSearch) {
+        const saveSearch__container = document.createElement('div');
+        const fillUstensil = document.createElement('p');
+        
+        saveSearch__container.setAttribute('class', 'filterSearch__ustensilsSave--container');
+        fillUstensil.setAttribute('class', 'filterSearch__ustensil--save');
+        fillUstensil.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        sectionFilterSave.appendChild(saveSearch__container); 
+        saveSearch__container.appendChild(fillUstensil); 
+        displayDataRecipes(recipes, arraySave);
+        displayUstensils(allUstensils);
+        saveSearchUstensils();
+        saveSearchUstensilsClick();
     }
 
     getUstensils(recipes);

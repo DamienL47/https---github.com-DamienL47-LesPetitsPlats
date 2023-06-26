@@ -33,10 +33,10 @@ function filterAppliances(recipes) {
 
     let filteredAppliances = [];
     
-    function searchAppliances(){
+    function searchAppliances() {
         inputAppliances.addEventListener('input', (e) => {
-            containerAppliances.innerHTML = "";
             const userSearch = formatName(e.target.value);
+            containerAppliances.innerHTML = "";
             filteredAppliances = allAppliances.filter(appliance => 
                 formatName(appliance).match(userSearch)
                 )
@@ -46,14 +46,15 @@ function filterAppliances(recipes) {
                 paragraph2.textContent = 'Aucun appareil trouvé';
                 containerAppliances.appendChild(paragraph2);
             } 
-            displayAppliances(filteredAppliances);   
-            saveSearchAppliancesClick();    
+            displayAppliances(filteredAppliances); 
+            saveSearchAppliancesClick();  
+            saveSearchAppliances();
         });
     }
 
     function saveSearchAppliances(){
         inputAppliances.addEventListener('keydown', (e) => {
-            if(e.key ==='Enter') {
+            if(e.key === 'Enter') {
                 const userSearch = e.target.value;
                 inputAppliances.value = "";
                 if(inputAppliances.value === "") {
@@ -62,21 +63,12 @@ function filterAppliances(recipes) {
                     saveSearchAppliancesClick();
                 }
                 allAppliances.forEach((appliance) => {
-                    if (sectionFilterSave.innerHTML.includes(formatName(userSearch)) || !arraySave.includes(appliance)) {
+                    if (sectionFilterSave.innerHTML.includes(userSearch)) {
                         return;
                     } 
                     arrayTags(arraySave, appliance);
-                    // arraySave.push(appliance)
-                    const saveSearch__container = document.createElement('div');
-                    const fillAppliance = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
-                    fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                    fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillAppliance); 
+                    displayTagAppliances(userSearch);
                 });
-                displayDataRecipes(recipes, arraySave);
             }
         });
     }
@@ -90,21 +82,26 @@ function filterAppliances(recipes) {
                         return;
                     } 
                     arrayTags(arraySave, userSearch);
-                    const saveSearch__container = document.createElement('div');
-                    const fillAppliance = document.createElement('p');
-                    
-                    saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
-                    fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
-                    fillAppliance.innerHTML = `${userSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
-                    sectionFilterSave.appendChild(saveSearch__container); 
-                    saveSearch__container.appendChild(fillAppliance); 
+                    displayTagAppliances(userSearch);
                 });
-                displayDataRecipes(recipes, arraySave);
-                displayAppliances(allAppliances);
             });
         });
     }
 
+    function displayTagAppliances(paramSearch) {
+        const saveSearch__container = document.createElement('div');
+        const fillAppliance = document.createElement('p');
+        
+        saveSearch__container.setAttribute('class', 'filterSearch__appareilsSave--container');
+        fillAppliance.setAttribute('class', 'filterSearch__appareil--save');
+        fillAppliance.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
+        sectionFilterSave.appendChild(saveSearch__container); 
+        saveSearch__container.appendChild(fillAppliance); 
+        displayDataRecipes(recipes, arraySave);
+        displayAppliances(allAppliances);
+        saveSearchAppliancesClick();
+        saveSearchAppliances();
+    }
 
     getAppliances(recipes);
     displayAppliances(allAppliances);
