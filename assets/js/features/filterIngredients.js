@@ -3,12 +3,14 @@ import { formatName } from '../utils/formatting.js';
 import { displayDataRecipes } from "./displayRecipes.js";
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { arrayTags, arraySave } from '../utils/arrayTags.js';
+import { recipesFilter } from './globalSearch.js';
 
 function filterIngredients(recipes) {
 
     let inputIngredients = document.getElementById('ingredients');
     const containerIngredients = document.querySelector('.filterSearch__ingredients--container');
     const sectionFilterSave = document.getElementById('saveSearch__filter');
+    const sectionRecipes = document.getElementById('recipesDisplay');
 
     let allIngredients = [];
     let uniqIngredients;
@@ -105,7 +107,20 @@ function filterIngredients(recipes) {
         fillIngredient.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`; 
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillIngredient);
-        displayDataRecipes(recipes, arraySave);
+        if(recipesFilter.length > 0) {
+            displayDataRecipes(recipesFilter, arraySave);
+        } else if(recipesFilter.length === 0) {
+            displayDataRecipes(recipes, arraySave);
+        }
+        if(sectionRecipes.innerHTML === "") {
+            const h3 = document.createElement('h3');
+            h3.setAttribute('class', 'recipesDisplay__h3');
+            h3.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
+            sectionRecipes.appendChild(h3); 
+        } 
+        if (!sectionRecipes.innerHTML === "") {
+            sectionRecipes.removeChild(h3);
+        }  
         displayIngredients(uniqIngredients);
         saveSearchIngredient(); 
         saveSearchIngredientClick();

@@ -2,6 +2,7 @@ import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
 import { arrayTags, arraySave } from '../utils/arrayTags.js';
+import { recipesFilter } from './globalSearch.js';
 
 function filterUstensils(recipes) {
 
@@ -10,6 +11,7 @@ function filterUstensils(recipes) {
     const inputUstensils = document.getElementById('ustencils');
     const containerUstensils = document.querySelector('.filterSearch__ustencils--container');
     const sectionFilterSave = document.getElementById('saveSearch__filter');
+    const sectionRecipes = document.getElementById('recipesDisplay');
     
     function getUstensils(recipes) {
         recipes.forEach((ustensils) => {
@@ -93,7 +95,20 @@ function filterUstensils(recipes) {
         fillUstensil.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillUstensil); 
-        displayDataRecipes(recipes, arraySave);
+        if(recipesFilter.length > 0) {
+            displayDataRecipes(recipesFilter, arraySave);
+        } else if(recipesFilter.length === 0) {
+            displayDataRecipes(recipes, arraySave);
+        }
+        if(sectionRecipes.innerHTML === "") {
+            const h3 = document.createElement('h3');
+            h3.setAttribute('class', 'recipesDisplay__h3');
+            h3.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
+            sectionRecipes.appendChild(h3); 
+        } 
+        if (!sectionRecipes.innerHTML === "") {
+            sectionRecipes.removeChild(h3);
+        } 
         displayUstensils(allUstensils);
         saveSearchUstensils();
         saveSearchUstensilsClick();

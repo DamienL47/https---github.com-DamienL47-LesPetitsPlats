@@ -2,6 +2,7 @@ import { formatName } from '../utils/formatting.js';
 import { deleteSearch } from '../utils/deleteSearch.js';
 import { displayDataRecipes } from "./displayRecipes.js"
 import { arrayTags, arraySave } from '../utils/arrayTags.js';
+import { recipesFilter } from './globalSearch.js';
 
 function filterAppliances(recipes) {
 
@@ -9,6 +10,7 @@ function filterAppliances(recipes) {
     const inputAppliances = document.getElementById('appareils');
     const containerAppliances = document.querySelector('.filterSearch__appareils--container');
     const sectionFilterSave = document.getElementById('saveSearch__filter');
+    const sectionRecipes = document.getElementById('recipesDisplay');
 
     let allAppliances = [];
 
@@ -97,7 +99,20 @@ function filterAppliances(recipes) {
         fillAppliance.innerHTML = `${paramSearch} <i class="fa-regular fa-circle-xmark"></i>`;                
         sectionFilterSave.appendChild(saveSearch__container); 
         saveSearch__container.appendChild(fillAppliance); 
-        displayDataRecipes(recipes, arraySave);
+        if(recipesFilter.length > 0) {
+            displayDataRecipes(recipesFilter, arraySave);
+        } else if(recipesFilter.length === 0) {
+            displayDataRecipes(recipes, arraySave);
+        }
+        if(sectionRecipes.innerHTML === "") {
+            const h3 = document.createElement('h3');
+            h3.setAttribute('class', 'recipesDisplay__h3');
+            h3.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
+            sectionRecipes.appendChild(h3); 
+        } 
+        if (!sectionRecipes.innerHTML === "") {
+            sectionRecipes.removeChild(h3);
+        }  
         displayAppliances(allAppliances);
         saveSearchAppliancesClick();
         saveSearchAppliances();

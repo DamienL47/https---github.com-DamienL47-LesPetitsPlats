@@ -1,8 +1,7 @@
 // import du fichier pour l'affichage des recettes
 import { displayDataRecipes } from "../features/displayRecipes.js"
 import { formatName } from "./formatting.js";
-
-
+import { recipesFilter } from '../features/globalSearch.js';
 
 // fonction de suppression des tags de recherche et mise à jour des recettes
 function deleteSearch(recipes, array) {
@@ -17,7 +16,11 @@ function deleteSearch(recipes, array) {
                     index = array.indexOf(ingredient);
                     array.splice(index, 1);
                     div.remove();
-                    displayDataRecipes(recipes, array);
+                    if(recipesFilter.length > 0) {
+                        displayDataRecipes(recipesFilter, array);
+                    }else {
+                        displayDataRecipes(recipes, array);
+                    }
                 } else {
                     displayDataRecipes(recipes);
                 }

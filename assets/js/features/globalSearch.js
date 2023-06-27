@@ -1,6 +1,7 @@
 import { displayDataRecipes } from "./displayRecipes.js";
 import { formatName } from "../utils/formatting.js";
 
+export let recipesFilter = [];
 //fonction de recherche globale
 function globalSearch(recipes) {
 
@@ -10,7 +11,6 @@ function globalSearch(recipes) {
 
     searchInput.addEventListener('input', (e) => {
         const searchValue = formatName(e.target.value);
-        let recipesFilter = [];
         if (searchValue.length > 2) {
             recipes.forEach((recipe) => {
                 recipe.ingredients.forEach((ingredient) => {
