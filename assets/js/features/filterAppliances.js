@@ -14,13 +14,13 @@ function filterAppliances(recipes) {
 
     let allAppliances = [];
 
-
+    // get all appliances from recipes
     function getAppliances(recipes) {
         recipes.forEach((appliances) => {
             allAppliances = allAppliances.concat(appliances.appliance);
         });
     }
-
+    // display all appliances
     function displayAppliances(appliances) {
         appliances.forEach((appliance) => {
             const paragraph = document.createElement('p');
@@ -34,7 +34,7 @@ function filterAppliances(recipes) {
     }
 
     let filteredAppliances = [];
-    
+    // save appliances in array
     function searchAppliances() {
         inputAppliances.addEventListener('input', (e) => {
             const userSearch = formatName(e.target.value);
@@ -53,7 +53,7 @@ function filterAppliances(recipes) {
             saveSearchAppliances();
         });
     }
-
+    // save appliances in tag
     function saveSearchAppliances(){
         inputAppliances.addEventListener('keydown', (e) => {
             if(e.key === 'Enter') {
@@ -74,6 +74,7 @@ function filterAppliances(recipes) {
             }
         });
     }
+    // save appliances in tag when click
     function saveSearchAppliancesClick(){
         const pAppliances = document.querySelectorAll('.filterSearch__appareils--p');
         pAppliances.forEach((pAppliance) => {
@@ -89,7 +90,7 @@ function filterAppliances(recipes) {
             });
         });
     }
-
+    // display appliances in tag
     function displayTagAppliances(paramSearch) {
         const saveSearch__container = document.createElement('div');
         const fillAppliance = document.createElement('p');

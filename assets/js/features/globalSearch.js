@@ -2,7 +2,8 @@ import { displayDataRecipes } from "./displayRecipes.js";
 import { formatName } from "../utils/formatting.js";
 
 export let recipesFilter = [];
-//fonction de recherche globale
+
+// Global function to filter recipes by name, description, appliance, ingredients and ustensils
 function globalSearch(recipes) {
 
     const searchInput = document.getElementById('searchBar');

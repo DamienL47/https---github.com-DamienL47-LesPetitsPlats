@@ -14,7 +14,7 @@ function filterIngredients(recipes) {
 
     let allIngredients = [];
     let uniqIngredients;
-    // read all ingredients
+    // get all ingredients from recipes
     function getIngredients(recipes) {
         for(let i = 0; i < recipes.length; i++) {
             for(let j = 0; j < recipes[i].ingredients.length; j++) {
@@ -23,7 +23,7 @@ function filterIngredients(recipes) {
             }
         }
     }
-    
+    // display all ingredients
     function displayIngredients(ingredients) {         
         ingredients.forEach((ingredient) => {  
             const paragraph = document.createElement('p');
@@ -34,7 +34,7 @@ function filterIngredients(recipes) {
     }
 
     let filteredIngredients = [];
-
+    // save ingredients in array
     function searchIngredients(){
         inputIngredients.addEventListener('input', (e) => {
             const userSearch = formatName(e.target.value);
@@ -59,7 +59,7 @@ function filterIngredients(recipes) {
             saveSearchIngredient();
         });    
     }
-
+    // save ingredients in tag
     function saveSearchIngredient() {
         inputIngredients.addEventListener('keydown', (e) => {        
             if(e.key ==='Enter') {
@@ -80,7 +80,7 @@ function filterIngredients(recipes) {
             }
         });        
     }
-
+    // save ingredients in tag when click
     function saveSearchIngredientClick() {
         const pIngredients = document.querySelectorAll('.filterSearch__ingredients--p');
         pIngredients.forEach((pIngredient) => {
@@ -97,7 +97,7 @@ function filterIngredients(recipes) {
             });
         });
     }
-
+    // display tag ingredients
     function displayTagFilter(paramSearch) {
         const fillIngredient = document.createElement('p');
         const saveSearch__container = document.createElement('div');

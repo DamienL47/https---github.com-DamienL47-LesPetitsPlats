@@ -4,7 +4,7 @@ import { filterAppliances } from "./features/filterAppliances.js";
 import { filterUstensils } from "./features/filterUstensils.js";
 import { globalSearch } from "./features/globalSearch.js";
 
-//fetch des datas 
+//get data from json file
 async function getRecipes() {
     const response = await fetch('../../data/recipes.json');
     const data = await response.json();
@@ -13,7 +13,7 @@ async function getRecipes() {
     return recipes;
 }
 
-
+//main function
 function main() {
     getRecipes()
     .then((recipes) => {

@@ -13,12 +13,14 @@ function filterUstensils(recipes) {
     const sectionFilterSave = document.getElementById('saveSearch__filter');
     const sectionRecipes = document.getElementById('recipesDisplay');
     
+    //get all ustensils from recipes
     function getUstensils(recipes) {
         recipes.forEach((ustensils) => {
             allUstensils = allUstensils.concat(ustensils.ustensils);
         });
     }
     
+    //display all ustensils
     function displayUstensils(ustensils) {
         ustensils.forEach((ustensil) => {
             const paragraph = document.createElement('p');
@@ -32,7 +34,7 @@ function filterUstensils(recipes) {
     }
 
     let filteredUstensils = [];
-    
+    //save ustensils in array
     function searchUstensils(){
         inputUstensils.addEventListener('input', (e) => {
             containerUstensils.innerHTML = "";
@@ -50,7 +52,7 @@ function filterUstensils(recipes) {
             saveSearchUstensilsClick();    
         });
     }
-
+    //save ustensils in tag
     function saveSearchUstensils(){
         inputUstensils.addEventListener('keydown', (e) => {
             if(e.key ==='Enter') {
@@ -71,6 +73,8 @@ function filterUstensils(recipes) {
             }
         });
     }
+
+    //save ustensils in tag when click
     function saveSearchUstensilsClick(){
         const pUstensils = document.querySelectorAll('.filterSearch__ustencils--p');
         pUstensils.forEach((pUstensil) => {
@@ -86,6 +90,7 @@ function filterUstensils(recipes) {
             });
         });
     }
+    //display all ustensils
     function displayTagUstensils(paramSearch) {
         const saveSearch__container = document.createElement('div');
         const fillUstensil = document.createElement('p');

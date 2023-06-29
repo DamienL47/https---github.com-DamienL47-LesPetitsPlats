@@ -1,7 +1,9 @@
 
+//Function to create the template of the recipe card
 function recipesDatas(data) {
+    // Destructuring of the data object
     const { id, name, serving, ingredients, time, description, appliance, ustensils } = data;
-    
+    // Function to create the recipe card
     function getRecipeCard() {
         const article = document.createElement('article');
         const emptyImg = document.createElement('div');
@@ -35,7 +37,7 @@ function recipesDatas(data) {
         
         return article
     }
-
+    // Function to create the list of ingredients
     function listIngredients() {
         const ulIngredients = document.createElement('ul');
         ulIngredients.setAttribute('class', 'listIngredients');
@@ -53,7 +55,6 @@ function recipesDatas(data) {
         }
         return ulIngredients
     }
-
 
     return {id, name, serving, ingredients, time, description, appliance, ustensils, getRecipeCard}
 }

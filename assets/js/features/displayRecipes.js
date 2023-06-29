@@ -1,7 +1,7 @@
 import { recipesDatas } from '../template.js';
 import { formatName } from '../utils/formatting.js';
 
-//affichage des recettes 
+// Display recipes
 function displayDataRecipes(recipes, filtersTags) {;
 
     const displayArticle = document.getElementById('recipesDisplay');
