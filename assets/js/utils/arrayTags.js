@@ -1,6 +1,6 @@
 export let arraySave = [];
-function arrayTags(array, tag) {
-    array.push(tag);
+function arrayTags(arraySave, tag) {
+    arraySave.push(tag);
 }
 
 export { arrayTags };

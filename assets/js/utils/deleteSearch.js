@@ -18,8 +18,10 @@ function deleteSearch(recipes, array) {
                     div.remove();
                     if(recipesFilter.length > 0) {
                         displayDataRecipes(recipesFilter, array);
-                    }else {
+                    } else if (array.length > 0){
                         displayDataRecipes(recipes, array);
+                    } else {
+                        displayDataRecipes(recipes);
                     }
                 } else {
                     displayDataRecipes(recipes);

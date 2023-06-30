@@ -12,6 +12,7 @@ function globalSearch(recipes) {
 
     searchInput.addEventListener('input', (e) => {
         const searchValue = formatName(e.target.value);
+        recipesFilter = [];
         if (searchValue.length > 2) {
             recipes.forEach((recipe) => {
                 recipe.ingredients.forEach((ingredient) => {
@@ -30,24 +31,25 @@ function globalSearch(recipes) {
                         recipesFilter.push(recipe);
                     }
                 });
+            }); 
+            recipes.forEach((recipe) => {
                 if (formatName(recipe.name).includes(searchValue) || formatName(recipe.description).includes(searchValue) || formatName(recipe.appliance).includes(searchValue)) {
                     if(recipesFilter.includes(recipe)) {
                         return;
                     }
                     recipesFilter.push(recipe);
                 }
-            }); 
+            });
             displayDataRecipes(recipesFilter);
-        } else {
-            displayDataRecipes(recipes);
         }
         if(recipesFilter.length === 0) {
             h3.setAttribute('class', 'recipesDisplay__h3');
             h3.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
             recipeEmpty.appendChild(h3); 
         } 
-        if (recipesFilter.length === 0 && searchValue.length < 3) {
+        if (recipesFilter.length > 0 || searchValue.length < 3) {
             recipeEmpty.removeChild(h3);
+            displayDataRecipes(recipes);
         }  
     });
 }
