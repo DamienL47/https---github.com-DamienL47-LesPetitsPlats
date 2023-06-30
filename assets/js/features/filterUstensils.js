@@ -102,8 +102,10 @@ function filterUstensils(recipes) {
         saveSearch__container.appendChild(fillUstensil); 
         if(recipesFilter.length > 0) {
             displayDataRecipes(recipesFilter, arraySave);
-        } else if(recipesFilter.length === 0) {
+        } else if (arraySave.length > 0) {
             displayDataRecipes(recipes, arraySave);
+        } else {
+            displayDataRecipes(recipes);
         }
         if(sectionRecipes.innerHTML === "") {
             const h3 = document.createElement('h3');
